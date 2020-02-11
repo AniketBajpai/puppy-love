@@ -1,11 +1,15 @@
-<ng-container *ngIf="(user$ | async) as user; else loading;">
+<ng-container>
+<!-- <ng-container *ngIf="(user$ | async) as user; else loading;"> -->
   <div fxLayout="row"
        fxLayout.lt-md="column"
        fxLayoutAlign="space-around start"
        fxLayoutAlign.lt-md="space-around center">
+    
     <mat-card class="smallonly textonly-greeter">
       <h2>Hello, {{ user.name }}</h2>
+      <mat-card-title> Hi {{ user.name }} </mat-card-title>
     </mat-card>
+
     <mat-card class="profile bigonly">
       <!-- <img mat-card-image [src]="user.image" alt="You?"> -->
       <div mat-card-image class="profile-pic" [style.background-image]="url">
@@ -23,7 +27,7 @@
         <hr>
         <a mat-button routerLink="/about"> About the platform </a>
         <a mat-button href="https://github.com/pclubiitk/puppy-love"> Source Code </a>
-        <a mat-button href="http://pclub.in"> pclub.in </a>
+        <!-- <a mat-button href="http://pclub.in"> pclub.in </a> -->
       </mat-card-content>
     </mat-card>
 
@@ -91,5 +95,10 @@
 </ng-container>
 
 <ng-template #loading>
-  Loading
+  <mat-card style="width: 600px; margin: 0 auto;">
+    <mat-card-title> Please wait while we load your profile... </mat-card-title>
+    <mat-card-actions>
+      <a mat-button routerLink="/login"> Refresh </a>
+    </mat-card-actions>
+  </mat-card>
 </ng-template>

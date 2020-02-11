@@ -17,9 +17,9 @@ export class LoginComponent {
               private router: Router,
               private snackBar: MatSnackBar) {}
 
-  onLogin(login: { roll: string, password: string }) {
+  onLogin(login: { username: string, password: string }) {
     this.loading = true;
-    this.main.login(login.roll, login.password)
+    this.main.login(login.username, login.password)
       .finally(() => this.loading = false)
       .subscribe(
         () => this.router.navigate([ 'home' ]),

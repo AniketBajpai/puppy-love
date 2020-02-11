@@ -11,17 +11,17 @@ export class LoginComponent {
   loginForm: FormGroup;
 
   @Output()
-  private login = new EventEmitter<{roll: string, password: string}>();
+  private login = new EventEmitter<{username: string, password: string}>();
 
   constructor(private fb: FormBuilder) {
     // Create Form
     this.loginForm = this.fb.group({
-      roll: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
 
-  get loginInfo(): {roll: string, password: string} {
+  get loginInfo(): {username: string, password: string} {
     return this.loginForm.value;
   }
 

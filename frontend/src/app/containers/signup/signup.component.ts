@@ -28,9 +28,9 @@ export class SignupComponent {
         }));
   }
 
-  mail(roll: string) {
+  otp(phone: string) {
     this.loading = true;
-    this.main.mail(roll)
+    this.main.otp(phone)
       .finally(() => this.loading = false)
       .subscribe(
         (msg) => {

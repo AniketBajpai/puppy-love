@@ -39,7 +39,7 @@ func SessionLogin(c *gin.Context) {
 			session.Set("id", u.Username)
 			session.Save()
 			c.String(http.StatusOK,
-				fmt.Sprintf("Logged in: %s", u.Username))
+				fmt.Sprintf("Logging in: %s", u.Username))
 		} else {
 			SessionLogout(c)
 			c.String(http.StatusOK, "Invalid username or password")

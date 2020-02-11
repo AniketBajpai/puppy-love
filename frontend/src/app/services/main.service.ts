@@ -247,7 +247,7 @@ export class MainService {
           } else if (err.status === 403) {
             return Observable.throw('It seems you entered a wrong password');
           } else if (err.status === 404) {
-            return Observable.throw('Your roll number is wrong. Please use your IITK roll no.');
+            return Observable.throw('Could not login. Please check your credentials.');
           }
         }
         return Observable.throw('An Error Occurred!! Please try again.');

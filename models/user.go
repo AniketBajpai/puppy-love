@@ -61,6 +61,8 @@ func NewUser(info *TypeUserNew) User {
 // ----------------------------------------
 type TypeUserFirst struct {
 	Id       string `json:"roll"`
+	Name       string `json:"name"`
+	Email       string `json:"email"`
 	AuthCode string `json:"authCode"`
 	PassHash string `json:"passHash"`
 	PubKey   string `json:"pubKey"`

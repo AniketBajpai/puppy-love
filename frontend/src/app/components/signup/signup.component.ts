@@ -18,8 +18,6 @@ export class SignupComponent {
   otpForm: FormGroup;
   signupForm: FormGroup;
 
-  phoneStore: String;
-
   @Output()
   private otp = new EventEmitter<string>();
   @Output()
@@ -32,11 +30,11 @@ export class SignupComponent {
     });
     this.signupForm = this.fb.group({
       email: ['', Validators.required],
+      name: ['', Validators.required],
       password: ['', Validators.required],
       password1: ['', Validators.required],
       authCode: ['', Validators.required],
     }, { validator: passwordMatchValidator });
-    this.phoneStore = this.otpForm.value.phone;
   }
 
   onOTP() {
@@ -45,8 +43,8 @@ export class SignupComponent {
   }
 
   onSignup() {
-    const { authCode, password, email } = this.signupForm.value;
-    const roll = this.phoneStore;
+    const { authCode, password, email, name } = this.signupForm.value;
+    const roll = this.otpForm.value.phone;
 
     const beginData = Crypto.fromJson({
       choices: []
@@ -62,6 +60,7 @@ export class SignupComponent {
     // Store encrypted private key, public key, and encrypted empty data
     const body = {
       roll,
+      name,
       email,
       passHash,
       authCode,

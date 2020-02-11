@@ -78,10 +78,10 @@ Just make sure that the actual folder (not symlink) is in the go directory.
 git clone https://github.com/pclubiitk/puppy-love $HOME/go/src/github.com/pclubiitk/puppy-love
 ```
 
-Install glide
-We use `glide` to maintain dependencies. `go get` is not recommended.
+Install dep
+We use `dep` to maintain dependencies. `go get` is not recommended.
 ```
-curl https://glide.sh/get | sh
+brew install dep
 cd $HOME/go/src/github.com/pclubiitk/puppy-love
 ```
 
@@ -109,7 +109,7 @@ docker run --name puppy-mongo-db -p 27017:27017 -d mongo
 
 Get dependencies for backend
 ```
-glide install
+dep ensure
 ```
 
 Get dependencies for frontend

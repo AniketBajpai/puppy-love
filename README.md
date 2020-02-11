@@ -114,9 +114,10 @@ dep ensure
 
 Get dependencies for frontend
 ```
-cd views
+cd frontend
 sudo npm install -g yarn
-yarn install
+npm install @angular/flex-layout@2.0.0-beta.10-4905443 --save
+npm install fsevents --save
 ```
 
 ## Run services

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Crypto } from '../../crypto';
 
@@ -14,33 +15,38 @@ const passwordMatchValidator: ValidatorFn = (g: FormGroup) => {
 })
 export class SignupComponent {
 
-  mailForm: FormGroup;
+  otpForm: FormGroup;
   signupForm: FormGroup;
 
+  phoneStore: String;
+
   @Output()
-  private mail = new EventEmitter<string>();
+  private otp = new EventEmitter<string>();
   @Output()
   private signup = new EventEmitter<any>();
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {
     // Create Form
-    this.mailForm = this.fb.group({
-      roll: ['', Validators.required],
+    this.otpForm = this.fb.group({
+      phone: ['', Validators.required],
     });
     this.signupForm = this.fb.group({
-      roll: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required],
       password1: ['', Validators.required],
       authCode: ['', Validators.required],
     }, { validator: passwordMatchValidator });
+    this.phoneStore = this.otpForm.value.phone;
   }
 
-  onMail() {
-    this.mail.emit(this.mailForm.value.roll);
+  onOTP() {
+    this.otp.emit(this.otpForm.value.phone);
+    // this.snackBar.open(this.otpForm.value.phone, '', {duration: 3000});
   }
 
   onSignup() {
-    const { authCode, password, roll } = this.signupForm.value;
+    const { authCode, password, email } = this.signupForm.value;
+    const roll = this.phoneStore;
 
     const beginData = Crypto.fromJson({
       choices: []
@@ -56,6 +62,7 @@ export class SignupComponent {
     // Store encrypted private key, public key, and encrypted empty data
     const body = {
       roll,
+      email,
       passHash,
       authCode,
       privKey: crypto.encryptSym(crypto.serializePriv()),

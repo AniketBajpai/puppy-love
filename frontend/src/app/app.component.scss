@@ -40,7 +40,7 @@ body {
   background-color: #5774b8;
 }
 .sandbox-correct-pronounciation {
-  padding: 1em 0 1em 0;
+  padding: 1em 0 2em 0;
 }
 .heading-correct-pronounciation {
   margin: auto;
@@ -58,7 +58,7 @@ h1 {
 }
 em {
   font-family: 'EB Garamond', serif;
-  font-size: 3.5em;
+  font-size: 3.0em;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   display: block;
@@ -84,4 +84,23 @@ em::after {
   letter-spacing: 0.07em;
   font-size: 1em;
   display: block;
+}
+
+@media screen and (max-width: 1040px) {
+  em {
+    font-size: 2.0em;
+  }
+}
+
+@media screen and (max-width: 740px) {
+  em {
+    font-size: 1.5em;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  em::before, em::after {
+    content: "";
+    margin: 0 0.0em;
+  }
 }

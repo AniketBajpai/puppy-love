@@ -1,16 +1,19 @@
 <mat-card-title>
-  Send verification mail
+  Verify Phone Number
 </mat-card-title>
 <mat-card-content>
-  <form [formGroup]="mailForm" (ngSubmit)="onMail()">
+  <div class="mat-caption">
+    Note) This number will be used by others to send you a like. It can't be changed later.
+  </div>
+  <form [formGroup]="otpForm" (ngSubmit)="onOTP()">
     <mat-form-field>
       <input
         matInput
-        formControlName="roll"
-        placeholder="Roll Number">
+        formControlName="phone"
+        placeholder="Phone Number">
     </mat-form-field>
 
-    <button mat-button> Send Mail </button>
+    <button mat-button> Send OTP </button>
   </form>
 </mat-card-content>
 
@@ -18,12 +21,15 @@
   Signup
 </mat-card-title>
 <mat-card-content>
+  <div class="mat-caption">
+    Note) This email will be used by others to send you a like. It can't be changed later.
+  </div>
   <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
     <mat-form-field>
       <input
         matInput
-        formControlName="roll"
-        placeholder="Roll Number">
+        formControlName="email"
+        placeholder="College Email Id">
     </mat-form-field>
 
     <mat-form-field>
@@ -46,7 +52,7 @@
       <input
         matInput
         formControlName="authCode"
-        placeholder="Auth Code">
+        placeholder="Auth Code (OTP)">
     </mat-form-field>
 
     <button mat-button> Signup </button>

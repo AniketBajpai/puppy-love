@@ -273,12 +273,34 @@ export class MainService {
           if (err.status === 202) {
             return of('Mail sent to your @iitk ID !');
           } else if (err.status === 404) {
-            return of('Your information was not found in our database. Please send us a mail at pclubiitk@gmail.com');
+            return of('Your information was not found in our database. Please send us a mail at konscience.help@gmail.com');
           } else if (err.status === 400) {
             return of('You have already registered');
           }
         }
-        return of('There was an error. Let us know at pclubiitk@gmail.com');
+        return of('There was an error. Let us know at konscience.help@gmail.com');
+      })
+    );
+  }
+
+  public otp(phone: string): Observable<string> {
+    return this.http.get('/api/users/otp/' + phone).pipe(
+      map(() => 'OTP sent on your number'),
+      catchError((err) => {
+        if (err.error instanceof Error) {
+          // A client-side or network error occurred. Handle it accordingly.
+        } else {
+          // The backend returned an unsuccessful response code.
+          // The response body may contain clues as to what went wrong,
+          if (err.status === 202) {
+            return of('Mail sent to your @iitk ID !');
+          } else if (err.status === 404) {
+            return of('Your phone number is invalid');
+          } else if (err.status === 400) {
+            return of('This number is already registered');
+          }
+        }
+        return of('There was an error. Let us know at konscience.help@gmail.com');
       })
     );
   }

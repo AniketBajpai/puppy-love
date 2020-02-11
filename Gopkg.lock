@@ -2,150 +2,170 @@
 
 
 [[projects]]
+  digest = "1:d55006554e83099f43c7769b5054109058a7c5417ed33645043663a831c287a4"
   name = "github.com/boj/redistore"
   packages = ["."]
+  pruneopts = ""
   revision = "fc113767cd6b051980f260d6dbe84b2740c46ab0"
   version = "v1.2"
 
 [[projects]]
   branch = "master"
+  digest = "1:2b036724237c0630b22864b499d27a35e7f9f0eefc3d90bf738571617d6ceaae"
   name = "github.com/bradfitz/gomemcache"
   packages = ["memcache"]
+  pruneopts = ""
   revision = "1952afaa557dc08e8e0d89eafab110fb501c1a2b"
 
 [[projects]]
   branch = "master"
+  digest = "1:eed7e9aaf5a84c8ff169b1e9b9878f164e1247c020e7f23306bf0b11256c8ff3"
   name = "github.com/bradleypeabody/gorilla-sessions-memcache"
   packages = ["."]
+  pruneopts = ""
   revision = "75ee37df8664a47cd5d9eb84d41e1f2b08086893"
 
 [[projects]]
+  digest = "1:9edeb5a0bfb31fd45134c4d35865a4d08f310c0bc200901ce1370cb90494f3e2"
   name = "github.com/garyburd/redigo"
   packages = [
     "internal",
-    "redis"
+    "redis",
   ]
+  pruneopts = ""
   revision = "d1ed5c67e5794de818ea85e6b522fda02623a484"
   version = "v1.4.0"
 
 [[projects]]
   branch = "master"
+  digest = "1:3dcd9cb71c4e4b961a744a2d8e290266a7765c35ca1c06f1bf503d7ed06b35d8"
   name = "github.com/gin-contrib/sessions"
   packages = ["."]
+  pruneopts = ""
   revision = "cccdeef56346e7037ca92de250c2b55ef5e7ffe3"
 
 [[projects]]
   branch = "master"
+  digest = "1:1120f960f5c334f0f94bad29eefaf73d52d226893369693686148f66c1993f15"
   name = "github.com/gin-contrib/sse"
   packages = ["."]
+  pruneopts = ""
   revision = "22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae"
 
 [[projects]]
+  digest = "1:348ceb76f2ac958e541e4ba3190484b68df28c38ac9720ed4ef8d36af69ce52e"
   name = "github.com/gin-gonic/gin"
   packages = [
     ".",
     "binding",
-    "render"
+    "render",
   ]
+  pruneopts = ""
   revision = "d459835d2b077e44f7c9b453505ee29881d5d12d"
   version = "v1.2"
 
 [[projects]]
   branch = "master"
+  digest = "1:3b760d3b93f994df8eb1d9ebfad17d3e9e37edcb7f7efaa15b427c0d7a64f4e4"
   name = "github.com/golang/protobuf"
   packages = ["proto"]
+  pruneopts = ""
   revision = "1e59b77b52bf8e4b449a57e6f79f21226d571845"
 
 [[projects]]
+  digest = "1:20ed7daa9b3b38b6d1d39b48ab3fd31122be5419461470d0c28de3e121c93ecf"
   name = "github.com/gorilla/context"
   packages = ["."]
+  pruneopts = ""
   revision = "1ea25387ff6f684839d82767c1733ff4d4d15d0a"
   version = "v1.1"
 
 [[projects]]
+  digest = "1:1ff3509899d1357b533eefcc4be703aa4b8b690370de9bce65389aad226acf3c"
   name = "github.com/gorilla/securecookie"
   packages = ["."]
+  pruneopts = ""
   revision = "667fe4e3466a040b780561fe9b51a83a3753eefc"
   version = "v1.1"
 
 [[projects]]
+  digest = "1:bfb5530b06be15a20de32e6c946eddc2d81693980c79205bcda3bd37fe1a931c"
   name = "github.com/gorilla/sessions"
   packages = ["."]
+  pruneopts = ""
   revision = "ca9ada44574153444b00d3fd9c8559e4cc95f896"
   version = "v1.1"
 
 [[projects]]
-  name = "github.com/imdario/mergo"
-  packages = ["."]
-  revision = "163f41321a19dd09362d4c63cc2489db2015f1f4"
-  version = "0.3.2"
-
-[[projects]]
-  name = "github.com/kataras/go-errors"
-  packages = ["."]
-  revision = "d2aaffdebcb40c69c4cb6a95e436430cde192435"
-  version = "v0.0.3"
-
-[[projects]]
   branch = "master"
+  digest = "1:d455d8f5462c395a7c6434b9e9f14bd3a65c5b310a3fca40aea8dff1adbcdf0f"
   name = "github.com/kidstuff/mongostore"
   packages = ["."]
+  pruneopts = ""
   revision = "256d65ac5b0e35e7c5ebb3f175c0bed1e5c2b253"
 
 [[projects]]
+  digest = "1:78229b46ddb7434f881390029bd1af7661294af31f6802e0e1bedaad4ab0af3c"
   name = "github.com/mattn/go-isatty"
   packages = ["."]
+  pruneopts = ""
   revision = "0360b2af4f38e8d38c7fce2a9f4e702702d73a39"
   version = "v0.0.3"
 
 [[projects]]
   branch = "master"
+  digest = "1:9924ebd2e0ff9b4c92cbb82838d776b5913295bcfeaffd5f3c36e55b845f1d7f"
   name = "github.com/ugorji/go"
   packages = ["codec"]
+  pruneopts = ""
   revision = "9831f2c3ac1068a78f50999a30db84270f647af6"
 
 [[projects]]
   branch = "master"
+  digest = "1:aba25123b0b02601b134eaf08bd84afe8e12cab70e43770e7b38d8eef8f1d93e"
   name = "golang.org/x/sys"
   packages = ["unix"]
+  pruneopts = ""
   revision = "2c42eef0765b9837fbdab12011af7830f55f88f0"
 
 [[projects]]
+  digest = "1:dd549e360e5a8f982a28c2bcbe667307ceffe538ed9afc7c965524f1ac285b3f"
   name = "gopkg.in/go-playground/validator.v8"
   packages = ["."]
+  pruneopts = ""
   revision = "5f1438d3fca68893a817e4a66806cea46a9e4ebf"
   version = "v8.18.2"
 
 [[projects]]
-  name = "gopkg.in/kataras/go-sessions.v0"
-  packages = [
-    "sessiondb/redis",
-    "sessiondb/redis/service"
-  ]
-  revision = "d7ae81e3f9a643facd6f210f3bb1dc3674302b10"
-  version = "v0.0.7"
-
-[[projects]]
   branch = "v2"
+  digest = "1:c80894778314c7fb90d94a5ab925214900e1341afeddc953cda7398b8cdcd006"
   name = "gopkg.in/mgo.v2"
   packages = [
     ".",
     "bson",
     "internal/json",
     "internal/sasl",
-    "internal/scram"
+    "internal/scram",
   ]
+  pruneopts = ""
   revision = "3f83fa5005286a7fe593b055f0d7771a7dce4655"
 
 [[projects]]
   branch = "v2"
+  digest = "1:4b4e5848dfe7f316f95f754df071bebfb40cf4482da62e17e7e1aebdf11f4918"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
+  pruneopts = ""
   revision = "d670f9405373e636a5a2765eea47fac0c9bc91a4"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "7912ee9fb8066fad398d9fc2c87f8ba0d66badbf628e7443c8f37c42667c097b"
+  input-imports = [
+    "github.com/gin-contrib/sessions",
+    "github.com/gin-gonic/gin",
+    "gopkg.in/mgo.v2",
+    "gopkg.in/mgo.v2/bson",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -65,9 +65,9 @@ You shall need docker, golang, nodejs, nginx and npm for the following steps.
 ```
 mkdir -p $HOME/go/src
 
-# Change .bashrc to .zshrc depending on your shell
-echo "export GOPATH=$HOME/go:$GOPATH" >> $HOME/.bashrc
-source $HOME/.bashrc
+# Change .zshrc to .bashrc depending on your shell
+echo "export GOPATH=$HOME/go" >> $HOME/.zshrc
+source $HOME/.zshrc
 ```
 
 Get the source code.
@@ -115,7 +115,6 @@ dep ensure
 Get dependencies for frontend
 ```
 cd frontend
-sudo npm install -g yarn
 npm install @angular/flex-layout@2.0.0-beta.10-4905443 --save
 npm install fsevents --save
 ```
@@ -132,8 +131,8 @@ docker start puppy-redis
 ## Run puppy-love
 ### Frontend
 ```
-# Run frontend (inside folder views)
-yarn start
+# Run frontend (inside folder frontend)
+npm start
 
 # IFF production, use
 yarn build && python -m http.serve 8091

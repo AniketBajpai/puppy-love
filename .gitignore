@@ -9,3 +9,4 @@ views/build
 .mail.env
 .pass.env
 /res
+scripts/mongodump/

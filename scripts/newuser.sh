@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-read -p "Roll: " roll
 read -p "Name: " name
+read -p "Phone number: " roll
 read -p "Gender (0/1): " gender
-read -p "Image: " image
 read -p "Email: " email
+read -p "Password: " passHash
 
-http -v 'pclub.cse.iitk.ac.in/api/admin/user/new' roll="$roll" name="$name" email="$email" gender="$gender" image="$image" passHash="aaaa" "$CADMIN"
+curl --request POST 'localhost:3000/admin/user/new' --header 'Content-Type: application/json' \
+--data-raw "{'name': '$name', 'email': '$email', 'roll': '$roll', 'image': '', 'gender': '$gender', 'passHash': '$passHash'}"

@@ -41,10 +41,11 @@ func UserNew(c *gin.Context) {
 		log.Print(err)
 		return
 	}
-
+	
 	info := new(models.TypeUserNew)
 	if err := c.BindJSON(info); err != nil {
 		c.AbortWithStatus(http.StatusBadRequest)
+		log.Print(err)
 		return
 	}
 

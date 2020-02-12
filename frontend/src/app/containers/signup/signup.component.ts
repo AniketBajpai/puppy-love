@@ -22,7 +22,9 @@ export class SignupComponent {
     this.main.signup(event)
       .finally(() => this.loading = false)
       .subscribe(
-        () => this.router.navigate([ 'login' ]),
+        () => {
+            this.snackBar.open("Successfully Registered", '', {duration: 3000});
+            this.router.navigate([ 'login' ])},
         (err) => this.snackBar.open(err, '', {
           duration: 3000
         }));

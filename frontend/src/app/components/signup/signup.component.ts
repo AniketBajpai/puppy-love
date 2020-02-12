@@ -55,9 +55,9 @@ export class SignupComponent {
 
     crypto.newKey();
 
-    var code = 0;
+    var code = "0";
     if(gender.toLowerCase() == 'm' || gender.toLowerCase() == 'male') {
-      code = 1;
+      code = "1";
     }
 
     // Store encrypted private key, public key, and encrypted empty data

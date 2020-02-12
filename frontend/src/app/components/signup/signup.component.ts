@@ -1,12 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Crypto } from '../../crypto';
-
-const passwordMatchValidator: ValidatorFn = (g: FormGroup) => {
-   return g.get('password').value === g.get('password1').value ? null : { mismatch: true };
-};
 
 @Component({
   selector: 'puppy-signup',
@@ -31,10 +27,10 @@ export class SignupComponent {
     this.signupForm = this.fb.group({
       email: ['', Validators.required],
       name: ['', Validators.required],
-      password: ['', Validators.required],
-      password1: ['', Validators.required],
+      gender: ['', Validators.compose([Validators.maxLength(1), Validators.required])],
+      password: ['', Validators.compose([Validators.minLength(4), Validators.required])],
       authCode: ['', Validators.required],
-    }, { validator: passwordMatchValidator });
+    });
   }
 
   onOTP() {
@@ -43,7 +39,7 @@ export class SignupComponent {
   }
 
   onSignup() {
-    const { authCode, password, email, name } = this.signupForm.value;
+    const { authCode, password, email, name, gender } = this.signupForm.value;
     const roll = this.otpForm.value.phone;
 
     const beginData = Crypto.fromJson({
@@ -61,6 +57,7 @@ export class SignupComponent {
     const body = {
       roll,
       name,
+      gender,
       email,
       passHash,
       authCode,

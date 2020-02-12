@@ -34,6 +34,15 @@ mat-card-title {
   max-width: 50px;
 }
 
+@media screen and (max-width: 960px) {
+  .main {
+    margin-top: 2em;
+  }
+  .profile {
+    width: 30vw;
+  }
+}
+
 @media screen and (max-width: 640px) {
   .smallonly {
     display: block;
@@ -42,8 +51,8 @@ mat-card-title {
     display: block;
     width: 90vw;
   }
-  .bigonly {
-    display: none;
+  .profile {
+    width: 66.67vw;
   }
   .textonly-greeter {
     margin: 5px;

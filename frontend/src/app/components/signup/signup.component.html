@@ -3,7 +3,7 @@
 </mat-card-title>
 <mat-card-content>
   <div class="mat-caption">
-    Note) This number will be used by others to send you a like. It can't be changed later.
+    Note) This number can be used by others to send you a like. It can't be changed later.
   </div>
   <form [formGroup]="otpForm" (ngSubmit)="onOTP()">
     <mat-form-field>
@@ -22,7 +22,7 @@
 </mat-card-title>
 <mat-card-content>
   <div class="mat-caption">
-    Note) This email will be used by others to send you a like. It can't be changed later.
+    Note) This email can be used by others to send you a like. It can't be changed later.
   </div>
   <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
     <mat-form-field>
@@ -41,18 +41,17 @@
 
     <mat-form-field>
       <input
-        type="password"
         matInput
-        formControlName="password"
-        placeholder="Password">
+        formControlName="gender"
+        placeholder="Gender (M/F)">
     </mat-form-field>
 
     <mat-form-field>
       <input
         type="password"
         matInput
-        formControlName="password1"
-        placeholder="Reenter Password">
+        formControlName="password"
+        placeholder="Password">
     </mat-form-field>
 
     <mat-form-field>

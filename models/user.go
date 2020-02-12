@@ -1,8 +1,6 @@
 package models
 
 import (
-	"log"
-
 	"github.com/AniketBajpai/puppy-love/utils"
 
 	"gopkg.in/mgo.v2"
@@ -41,7 +39,6 @@ type TypeUserNew struct {
 }
 
 func NewUser(info *TypeUserNew) User {
-	log.Println("NewUser")
 	return User{
 		Id:      info.Id,
 		Name:    info.Name,
@@ -64,8 +61,8 @@ func NewUser(info *TypeUserNew) User {
 // ----------------------------------------
 type TypeUserFirst struct {
 	Id       string `json:"roll"`
-	Name       string `json:"name"`
-	Email       string `json:"email"`
+	Name     string `json:"name"`
+	Email    string `json:"email"`
 	AuthCode string `json:"authCode"`
 	PassHash string `json:"passHash"`
 	PubKey   string `json:"pubKey"`

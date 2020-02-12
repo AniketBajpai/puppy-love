@@ -41,7 +41,7 @@ func UserNew(c *gin.Context) {
 		log.Print(err)
 		return
 	}
-	
+
 	info := new(models.TypeUserNew)
 	if err := c.BindJSON(info); err != nil {
 		c.AbortWithStatus(http.StatusBadRequest)
@@ -70,10 +70,10 @@ func UserFirst(c *gin.Context) {
 		c.AbortWithStatus(http.StatusBadRequest)
 		return
 	}
-	fmt.Printf("%+v\n", info)
+	// fmt.Printf("%+v\n", info)
 
 	user := models.NewUser(info)
-	fmt.Printf("%+v\n", user)
+	// fmt.Printf("%+v\n", user)
 
 	// // Fetch user
 	// if err := Db.GetById("user", info.Id).One(&user); err != nil {
@@ -89,7 +89,7 @@ func UserFirst(c *gin.Context) {
 	// }
 
 	// Add user to DB
-	user.SetField("AuthC", "")
+	// user.AuthC = ""
 	if err := Db.GetCollection("user").Insert(&user); err != nil {
 		c.AbortWithStatus(http.StatusInternalServerError)
 		log.Print(err)

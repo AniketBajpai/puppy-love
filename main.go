@@ -4,12 +4,14 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/pclubiitk/puppy-love/config"
-	"github.com/pclubiitk/puppy-love/db"
-	"github.com/pclubiitk/puppy-love/router"
-	"github.com/pclubiitk/puppy-love/utils"
+	"github.com/AniketBajpai/puppy-love/config"
+	"github.com/AniketBajpai/puppy-love/db"
+	"github.com/AniketBajpai/puppy-love/router"
+	"github.com/AniketBajpai/puppy-love/utils"
 
+	// "github.com/gorilla/sessions"
 	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 )
 
@@ -32,7 +34,7 @@ func main() {
 	utils.Randinit()
 
 	// set up session db
-	store := sessions.NewCookieStore([]byte(config.CfgAdminPass))
+	store := cookie.NewStore([]byte(config.CfgAdminPass))
 
 	// iris.Config.Gzip = true
 	r := gin.Default()

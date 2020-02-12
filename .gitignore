@@ -10,3 +10,4 @@ views/build
 .pass.env
 /res
 scripts/mongodump/
+.DS_Store

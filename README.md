@@ -1,13 +1,13 @@
 Puppy Love
 ==========
 
-The modern and better avatar of Programming Club's [puppy-love](https://github.com/pclubiitk/valentine).
+The modern and better avatar of Programming Club's [puppy-love](https://github.com/AniketBajpai/valentine).
 
 Puppy Love is a platform for shy people to reach out anonymously to their crush. They can sign up and mark up to 4 of their crushes. On Valentine's day, the platform will match them anonymously, and will inform them if both of them like each other.
 
 Used in IIT Kanpur from 7th to 14th February, 2017, witnessing 1800+ registrants.
 
-![alt tag](https://raw.githubusercontent.com/pclubiitk/puppy-love/master/cover.jpg)
+![alt tag](https://raw.githubusercontent.com/AniketBajpai/puppy-love/master/cover.jpg)
 
 Algorithm designed from the ground up, with a completely secure computation model which guarantees the following:
 
@@ -75,14 +75,14 @@ Get the source code.
 You can later symlink the following folder into a convenient location.
 Just make sure that the actual folder (not symlink) is in the go directory.
 ```
-git clone https://github.com/pclubiitk/puppy-love $HOME/go/src/github.com/pclubiitk/puppy-love
+git clone https://github.com/AniketBajpai/puppy-love $HOME/go/src/github.com/AniketBajpai/puppy-love
 ```
 
 Install dep
 We use `dep` to maintain dependencies. `go get` is not recommended.
 ```
 brew install dep
-cd $HOME/go/src/github.com/pclubiitk/puppy-love
+cd $HOME/go/src/github.com/AniketBajpai/puppy-love
 ```
 
 Set up nginx
@@ -117,6 +117,7 @@ Get dependencies for frontend
 cd frontend
 npm install @angular/flex-layout@2.0.0-beta.10-4905443 --save
 npm install fsevents --save
+npm install
 ```
 
 ## Run services

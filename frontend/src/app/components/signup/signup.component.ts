@@ -45,6 +45,8 @@ export class SignupComponent {
   onSignup() {
     const { authCode, password, email, name } = this.signupForm.value;
     const roll = this.otpForm.value.phone;
+    console.log("Roll: " + roll);
+    
 
     const beginData = Crypto.fromJson({
       choices: []

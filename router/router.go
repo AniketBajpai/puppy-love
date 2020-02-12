@@ -3,8 +3,8 @@ package router
 import (
 	"net/http"
 
-	"github.com/pclubiitk/puppy-love/controllers"
-	"github.com/pclubiitk/puppy-love/db"
+	"github.com/AniketBajpai/puppy-love/controllers"
+	"github.com/AniketBajpai/puppy-love/db"
 
 	"github.com/gin-gonic/gin"
 )

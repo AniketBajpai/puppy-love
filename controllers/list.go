@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/pclubiitk/puppy-love/models"
+	"github.com/AniketBajpai/puppy-love/models"
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/mgo.v2/bson"

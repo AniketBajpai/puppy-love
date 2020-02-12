@@ -7,9 +7,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/pclubiitk/puppy-love/db"
-	"github.com/pclubiitk/puppy-love/models"
-	"github.com/pclubiitk/puppy-love/utils"
+	"github.com/AniketBajpai/puppy-love/db"
+	"github.com/AniketBajpai/puppy-love/models"
+	"github.com/AniketBajpai/puppy-love/utils"
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/mgo.v2/bson"
@@ -64,45 +64,55 @@ func UserNew(c *gin.Context) {
 // ------------------
 // TODO! - add OTP verification!
 func UserFirst(c *gin.Context) {
-	info := new(models.TypeUserFirst)
+	// info := new(models.TypeUserFirst)
+	info := new(models.TypeUserNew)
 	if err := c.BindJSON(info); err != nil {
 		c.AbortWithStatus(http.StatusBadRequest)
 		return
 	}
 	fmt.Printf("%+v\n", info)
 
-	user := models.User{}
+	user := models.NewUser(info)
+	fmt.Printf("%+v\n", user)
 
-	// Fetch user
-	if err := Db.GetById("user", info.Id).One(&user); err != nil {
-		c.AbortWithStatus(http.StatusNotFound)
-		log.Print(err)
-		return
-	}
+	// // Fetch user
+	// if err := Db.GetById("user", info.Id).One(&user); err != nil {
+	// 	c.AbortWithStatus(http.StatusNotFound)
+	// 	log.Print(err)
+	// 	return
+	// }
 
-	// If auth code did not match
-	if user.AuthC != info.AuthCode || user.AuthC == "" {
-		c.AbortWithStatus(http.StatusForbidden)
-		return
-	}
+	// // If auth code did not match
+	// if user.AuthC != info.AuthCode || user.AuthC == "" {
+	// 	c.AbortWithStatus(http.StatusForbidden)
+	// 	return
+	// }
 
-	// Edit information
-	if _, err := Db.GetById("user", info.Id).
-		Apply(user.FirstLogin(info), &user); err != nil {
-
+	// Add user to DB
+	user.SetField("AuthC", "")
+	if err := Db.GetCollection("user").Insert(&user); err != nil {
 		c.AbortWithStatus(http.StatusInternalServerError)
 		log.Print(err)
 		return
 	}
 
-	// Remove user's auth token
-	if _, err := Db.GetById("user", info.Id).
-		Apply(user.SetField("autoCode", ""), &user); err != nil {
+	// // Edit information
+	// if _, err := Db.GetById("user", info.Id).
+	// 	Apply(user.FirstLogin(info), &user); err != nil {
 
-		c.AbortWithStatus(http.StatusInternalServerError)
-		log.Print(err)
-		return
-	}
+	// 	c.AbortWithStatus(http.StatusInternalServerError)
+	// 	log.Print(err)
+	// 	return
+	// }
+
+	// // Remove user's auth token
+	// if _, err := Db.GetById("user", info.Id).
+	// 	Apply(user.SetField("autoCode", ""), &user); err != nil {
+
+	// 	c.AbortWithStatus(http.StatusInternalServerError)
+	// 	log.Print(err)
+	// 	return
+	// }
 
 	c.JSON(http.StatusAccepted, "Information set up")
 }

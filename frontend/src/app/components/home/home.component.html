@@ -1,5 +1,5 @@
-<ng-container>
-<!-- <ng-container *ngIf="(user$ | async) as user; else loading;"> -->
+<!-- <ng-container> -->
+<ng-container *ngIf="(user$ | async) as user; else loading;">
   <div fxLayout="row"
        fxLayout.lt-md="column"
        fxLayoutAlign="space-around start"
@@ -10,13 +10,10 @@
     </mat-card> -->
 
     <mat-card class="profile bigonly">
-      <!-- <img mat-card-image [src]="user.image" alt="You?"> -->
-      <!-- <div mat-card-image class="profile-pic" [style.background-image]="url">
-      </div> -->
       <mat-card-title> Hi {{ user.name }} </mat-card-title>
       <mat-card-content>
         <button mat-button>
-          <mat-icon>{{ user.submitted ? 'check' : 'close' }}</mat-icon>
+          <mat-icon color="primary">{{ user.submitted ? 'check' : 'close' }}</mat-icon>
           {{ user.submitted ? 'Submitted!' : 'Not Submitted' }}
         </button>
         <hr>
@@ -25,35 +22,43 @@
           Logout
         </button>
         <a mat-button routerLink="/about"> About the platform </a>
+        <a mat-button routerLink="/howto"> How it Works </a>
         <a mat-button href="https://github.com/AniketBajpai/puppy-love"> Source Code </a>
-        <!-- <a mat-button href="http://pclub.in"> pclub.in </a> -->
       </mat-card-content>
     </mat-card>
 
     <mat-card class="main">
       <mat-card-content>
-        <puppy-search *ngIf="user.data.choices.length < 4 && !user.submitted"
+        
+
+        <!-- <puppy-search *ngIf="user.data.choices.length < 5 && !user.submitted"
                       (select)="add($event)"
                       [students]="main.people">
-        </puppy-search>
-        <div fxLayoutAlign="center center" *ngIf="user.data.choices.length >= 4 && !user.submitted">
-          <h3>You can only select 4 people.</h3>
+        </puppy-search> -->
+
+        <div fxLayoutAlign="center center" *ngIf="user.data.choices.length >= 5 && !user.submitted">
+          <h3>You can only select uptp 5 people.</h3>
+        </div>
+
+        <div fxLayoutAlign="center center" *ngIf="user.data.choices.length < 5 && !user.submitted">
+          <h3>Add people to send a like to. (Press Enter to add)</h3>
         </div>
 
         <!-- <choices [choices]="user.choices" (personRemoved)=""></choices> -->
-        <mat-form-field class="demo-chip-list">
+        <mat-form-field class="demo-chip-list" *ngIf="user.data.choices.length < 5 && !user.submitted">
+
           <mat-chip-list #chipList>
-            <mat-chip *ngFor="let choice of user.data.choices" [selectable]="true"
+<!--             <mat-chip *ngFor="let choice of user.data.choices" [selectable]="true"
               [removable]="true" (remove)="remove(choice)">
               {{ choice._id }}
               <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip>
-            <input placeholder="New Choice..."
-                  [disabled]="user.data.choices.length > 4"
+            </mat-chip> -->
+            <input placeholder="Phone Number / Campus Email"
                   [matChipInputFor]="chipList"
                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                   (matChipInputTokenEnd)="add($event)" />
           </mat-chip-list>
+
         </mat-form-field>
         
         <!-- <div fxLayout="column" fxLayoutAlign="center center" *ngIf="user.data.choices.length !== 0"> -->
@@ -62,8 +67,11 @@
           <div *ngIf="!user.submitted">(Click to remove)</div>
         </div>
         <div fxLayout="row wrap" fxLayoutAlign="center center">
-          <puppy-student *ngFor="let choice of user.data.choices" [student]="choice" (select)="remove(choice)"></puppy-student>
+          <puppy-student *ngFor="let choice of user.data.choices" [student]="choice" (select)="remove(choice)">{{ choice._id }}</puppy-student>
         </div>
+
+        <hr>
+
         <!-- <button mat-button (click)="onSave()" *ngIf="!user.submitted"> -->
         <button mat-button (click)="onSave()">
           <mat-icon>save</mat-icon>
@@ -75,15 +83,17 @@
           Lock and submit!
         </button>
         <!-- <hr *ngIf="!user.submitted"> -->
+        
         <hr>
+        
         <div fxLayout="row" *ngIf="maleHearts(user).length !== 0">
-          <h3>Hearts from people that the OA identifies as male:</h3>
+          <h3>Hearts from Males:</h3>
         </div>
         <div fxLayout="row" fxLayoutAlign="start center">
           <img class="lovely-heart" *ngFor="let h of maleHearts(user).slice(0, 9)" src="/assets/heart.png">
         </div>
         <div fxLayout="row" *ngIf="femaleHearts(user).length !== 0">
-          <h3>Hearts from people that the OA identifies as female:</h3>
+          <h3>Hearts from Females:</h3>
         </div>
         <div fxLayout="row" fxLayoutAlign="start center">
           <img class="lovely-heart" *ngFor="let h of femaleHearts(user).slice(0, 9)" src="/assets/heart.png">

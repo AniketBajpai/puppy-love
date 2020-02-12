@@ -4,7 +4,10 @@
 [[projects]]
   digest = "1:e4c38ecc8b639c75c42475e2d2e958cba31498e9c4a1f06a3ba25829307f6869"
   name = "github.com/gin-contrib/sessions"
-  packages = ["."]
+  packages = [
+    ".",
+    "cookie",
+  ]
   pruneopts = ""
   revision = "4447bb3dfc826b56e604c19f52a6443ccfe7b28d"
   version = "v0.0.3"
@@ -172,6 +175,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/gin-contrib/sessions",
+    "github.com/gin-contrib/sessions/cookie",
     "github.com/gin-gonic/gin",
     "gopkg.in/mgo.v2",
     "gopkg.in/mgo.v2/bson",

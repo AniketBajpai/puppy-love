@@ -64,6 +64,7 @@ You shall need docker, golang, nodejs, nginx and npm for the following steps.
 
 ```
 mkdir -p $HOME/go/src
+mkdir -p $HOME/go/bin
 
 # Change .zshrc to .bashrc depending on your shell
 echo "export GOPATH=$HOME/go" >> $HOME/.zshrc
@@ -81,6 +82,9 @@ git clone https://github.com/AniketBajpai/puppy-love $HOME/go/src/github.com/Ani
 Install dep
 We use `dep` to maintain dependencies. `go get` is not recommended.
 ```
+# Linux
+curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+# Mac
 brew install dep
 cd $HOME/go/src/github.com/AniketBajpai/puppy-love
 ```
@@ -92,9 +96,9 @@ sudo cp puppy.nginx.conf /etc/nginx/sites_enabled/
 
 Edit /etc/hosts file
 ```
-# Map dev.puppy.pclub.in to 127.0.0.1
+# Map playmates.me to 127.0.0.1
 # It should have a line saying:
-# 127.0.0.1 <something> <more> dev.puppy.pclub.in
+# 127.0.0.1 <something> <more> playmates.me
 ```
 
 Get the essential dockers
@@ -116,6 +120,7 @@ Get dependencies for frontend
 ```
 cd frontend
 npm install @angular/flex-layout@2.0.0-beta.10-4905443 --save
+# Only for mac
 npm install fsevents --save
 npm install
 ```
@@ -136,7 +141,7 @@ docker start puppy-redis
 npm start
 
 # IFF production, use
-yarn build && python -m http.serve 8091
+npm run-script build && python3 -m http.server 8091
 ```
 
 ### Backend
@@ -176,14 +181,14 @@ http get 'localhost:3000/compute/prepare' $CADMIN
 ```
 
 ### Using the frontend
-Once you've created the users, you will need to register them. Open the UI at dev.puppy.pclub.in, and go to signup. You can only register for users which you have created. Get your auth token via email, and then fill up the remaining fields.
+Once you've created the users, you will need to register them. Open the UI at playmates.me, and go to signup. You can only register for users which you have created. Get your auth token via email, and then fill up the remaining fields.
 
 ### Notes
 * You cannot login as admin on the frontend UI.
 * You can also check mongoDB's data for the auth token for the user.
 * Doing the above will mandate marking the user as `non-dirty` in the MongoDb users table manually.
 
-You can open the local website at [dev.puppy.pclub.in](dev.puppy.pclub.in)
+You can open the local website at [playmates.me](playmates.me)
 The backend will be listening on the printed port number.
 
 ### Contributors

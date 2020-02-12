@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"time"
+	"strings"
 	"io/ioutil"
 
 	"github.com/AniketBajpai/puppy-love/db"
@@ -44,6 +45,7 @@ func OTPGenerate(c *gin.Context) {
 	template_id := "5e440a9bd6fc051055075e46" // sample_template specified on MSG91 website
 
 	url := "https://api.msg91.com/api/v5/otp?authkey=" + authentication_key + "&template_id=" + template_id + "&extra_param=%7B%22Param1%22%3A%22Value1%22%2C%20%22Param2%22%3A%22Value2%22%2C%20%22Param3%22%3A%20%22Value3%22%7D&mobile=" + phone
+	log.Println(url)
 
 	req, _ := http.NewRequest("GET", url, nil)
 
@@ -58,7 +60,7 @@ func OTPGenerate(c *gin.Context) {
 	fmt.Println(string(body))
 	
 	log.Print("exiting OTPGenerate")
-	c.String(http.StatusOK, res)
+	c.String(http.StatusOK, "OTP sent to your phone!")
 
 }
 
@@ -91,7 +93,6 @@ func UserNew(c *gin.Context) {
 
 // User's first login
 // ------------------
-// TODO! - add OTP verification!
 func UserFirst(c *gin.Context) {
 	info := new(models.TypeUserFirst)
 	// info := new(models.TypeUserNew)
@@ -115,12 +116,12 @@ func UserFirst(c *gin.Context) {
 	// OTP Verification
 	log.Print("starting OTP verification")
 	phone := user.Id
-	otp := user.AuthC
+	otp := strings.Trim(user.AuthC, "\t \n")
 	match := sms.Verify_otp(phone, otp)
 
 	if !match {
 		log.Print("OTP did not match")
-		c.AbortWithStatus(http.StatusForbidden, "OTP did not match")
+		c.AbortWithStatus(http.StatusForbidden)
 		return
 	} else {
 		log.Print("OTP matched")
@@ -133,7 +134,6 @@ func UserFirst(c *gin.Context) {
 	// }
 
 	// Add user to DB
-	// user.AuthC = ""
 	if err := Db.GetCollection("user").Insert(&user); err != nil {
 		c.AbortWithStatus(http.StatusInternalServerError)
 		log.Print(err)

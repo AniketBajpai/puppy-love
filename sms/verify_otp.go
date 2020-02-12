@@ -2,6 +2,7 @@ package sms
 
 import (
 	"fmt"
+	// "log"
 	"net/http"
 	"io/ioutil"
 	"encoding/json"
@@ -19,6 +20,7 @@ func Verify_otp(phone_number string, otp string) bool{
 	authentication_key := "317977AW4pGzw2Z5e43e504P1"
 
 	url := "https://api.msg91.com/api/v5/otp/verify?mobile="+ phone_number +"&otp="+ otp +"&authkey=" + authentication_key
+	// log.Println(url)
 
 	req, _ := http.NewRequest("POST", url, nil)
 

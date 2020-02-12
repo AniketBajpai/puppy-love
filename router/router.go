@@ -41,11 +41,12 @@ func PuppyRoute(r *gin.Engine, db db.PuppyDb) {
 		api_users.POST("/data/submit/:you", controllers.UserSubmitTrue)
 		api_users.POST("/image/update/:you", controllers.UserUpdateImage)
 		api_users.POST("/pass/update/:you", controllers.UserSavePass)
-
+		
 		api_users.GET("/data/info", controllers.UserLoginGet)
 		api_users.GET("/data/match/:you", controllers.MatchGet)
 		api_users.GET("/get/:id", controllers.UserGet)
 		api_users.GET("/mail/:id", controllers.UserMail)
+		api_users.GET("/otp/:phone", controllers.OTPGenerate)
 	}
 
 	// Listing users

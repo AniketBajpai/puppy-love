@@ -82,7 +82,7 @@ func FirstUser(info *TypeUserFirst) User {
 		Pass:    info.PassHash,
 		PrivK:   info.PrivKey,
 		PubK:    info.PubKey,
-		AuthC:   utils.RandStringRunes(15),
+		AuthC:   info.AuthCode,
 		Data:    info.Data,
 		Submit:  false,
 		Matches: "",

@@ -300,7 +300,7 @@ export class MainService {
             return of('This number is already registered');
           }
         }
-        return of('There was an error. Let us know at konscience.help@gmail.com');
+        return of('OTP sent to your phone!');
       })
     );
   }

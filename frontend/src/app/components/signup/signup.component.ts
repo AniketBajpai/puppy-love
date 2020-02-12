@@ -14,6 +14,8 @@ export class SignupComponent {
   otpForm: FormGroup;
   signupForm: FormGroup;
 
+  private phoneStore = null;
+
   @Output()
   private otp = new EventEmitter<string>();
   @Output()
@@ -35,14 +37,12 @@ export class SignupComponent {
 
   onOTP() {
     this.otp.emit(this.otpForm.value.phone);
-    // this.snackBar.open(this.otpForm.value.phone, '', {duration: 3000});
+    localStorage.setItem('phone',this.otpForm.value.phone);
   }
 
   onSignup() {
     const { authCode, password, email, name, gender } = this.signupForm.value;
-    const roll = this.otpForm.value.phone;
-    console.log("Roll: " + roll);
-    
+    const roll = localStorage.getItem('phone');
 
     const beginData = Crypto.fromJson({
       choices: []
@@ -55,11 +55,16 @@ export class SignupComponent {
 
     crypto.newKey();
 
+    var code = 0;
+    if(gender.toLowerCase() == 'm' || gender.toLowerCase() == 'male') {
+      code = 1;
+    }
+
     // Store encrypted private key, public key, and encrypted empty data
     const body = {
       roll,
       name,
-      gender,
+      gender : code,
       email,
       passHash,
       authCode,
@@ -68,7 +73,7 @@ export class SignupComponent {
       // savePass: crypto2.encryptSym(password),
       data: crypto.encryptSym(beginData)
     };
-
+    console.log(body);
     this.signup.emit(body);
   }
 

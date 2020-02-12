@@ -35,6 +35,7 @@ func UserDelete(c *gin.Context) {
 }
 
 func OTPGenerate(c *gin.Context) {
+	log.Print("entered OTPGenerate")
 
 	// info := new(models.TypeUserNew)
 	// if err := c.BindJSON(info); err != nil {
@@ -50,6 +51,7 @@ func OTPGenerate(c *gin.Context) {
 	sms.Send_otp(phone) // check if this is the right way to call function from another folder
 
 	// c.JSON(http.StatusAccepted, "Information set up")
+	log.Print("exiting OTPGenerate")
 	return
 }
 
@@ -103,7 +105,8 @@ func UserFirst(c *gin.Context) {
 	// }
 
 	// OTP Verification
-	phone := user.Roll
+	log.Print("starting OTP verification")
+	phone := user.Id
 	otp := user.AuthC
 	match := sms.Verify_otp(phone, otp)
 	if !match {

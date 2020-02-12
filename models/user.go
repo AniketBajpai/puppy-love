@@ -25,7 +25,6 @@ type (
 		Vote    int    `json:"voted" bson:"voted"`
 		Dirty   bool   `json:"dirty" bson:"dirty"`
 		SPass   string `json:"savepass" bson:"savepass"`
-		Roll	string `json:"roll" bson:"roll"`
 	}
 )
 
@@ -37,7 +36,6 @@ type TypeUserNew struct {
 	Gender   string `json:"gender"`
 	Image    string `json:"image"`
 	PassHash string `json:"passHash"`
-	Roll	 string `json:"roll"`
 }
 
 func NewUser(info *TypeUserNew) User {
@@ -57,7 +55,6 @@ func NewUser(info *TypeUserNew) User {
 		Vote:    0,
 		Dirty:   true,
 		SPass:   "",
-		Roll:	 info.Roll,
 	}
 }
 
@@ -73,7 +70,6 @@ type TypeUserFirst struct {
 	PubKey   string `json:"pubKey"`
 	PrivKey  string `json:"privKey"`
 	Data     string `json:"data"`
-	Roll	 string `json:"roll"`
 }
 
 func FirstUser(info *TypeUserFirst) User {
@@ -93,7 +89,6 @@ func FirstUser(info *TypeUserFirst) User {
 		Vote:    0,
 		Dirty:   true,
 		SPass:   "",
-		Roll:	 info.Roll,
 	}
 }
 

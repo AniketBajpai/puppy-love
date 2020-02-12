@@ -18,7 +18,7 @@ img {
   margin-bottom: 0px;
   padding-top: 0px;
   padding-bottom: 0px;
-  width: 25em;
+  width: 30em;
 }
 
 h1 {
@@ -109,11 +109,23 @@ h2 {
   em {
     font-size: 1.5em;
   }
+  img {
+    width: 20em;
+  }
+  h2 {
+    font-size: 1.2em;
+  }
 }
 
 @media screen and (max-width: 600px) {
   em::before, em::after {
     content: "";
     margin: 0 0.0em;
+  }
+  img {
+    width: 15em;
+  }
+  h2 {
+    font-size: 1.05em;
   }
 }

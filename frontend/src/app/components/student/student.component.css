@@ -7,8 +7,10 @@
 
 .info {
   flex-grow: 3;
-  padding: 2vmin;
+  padding: 3vmin;
   width: 80%;
+  font-size: 18px;
+  text-align: center;
 }
 
 .name {
@@ -22,10 +24,12 @@
 }
 
 .container {
+  background-color: #fadadd;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   cursor: pointer;
-  height: 140px;
+  /*height: 4em;*/
   margin: 2vmin;
-  /* padding: 1vmin; */
-  width: 400px;
+  padding: 1vmin; 
+  min-width: 12em;
+  /*width: 100%;*/
 }

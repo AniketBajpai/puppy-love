@@ -32,12 +32,14 @@ h1 {
   font-weight: 400;
   src: local('Cardo Italic'), local('Cardo-Italic'), url(https://fonts.gstatic.com/s/cardo/v11/wlpxgwjKBV1pqhv97IMx2Q.ttf) format('truetype');
 }
+
 @font-face {
   font-family: 'EB Garamond';
   font-style: normal;
   font-weight: 400;
   src: url(https://fonts.gstatic.com/s/ebgaramond/v13/SlGDmQSNjdsmc35JDF1K5E55YMjF_7DPuGi-6_RkBI96.ttf) format('truetype');
 }
+
 body {
   margin: 0;
   background-color: #5774b8;

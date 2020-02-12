@@ -50,7 +50,7 @@ interface MatchInfo {
   matches: string;
 }
 
-interface Person {
+export interface Person {
   _id: string;
   name: string;
   email: string;
@@ -293,7 +293,7 @@ export class MainService {
           // The backend returned an unsuccessful response code.
           // The response body may contain clues as to what went wrong,
           if (err.status === 202) {
-            return of('Mail sent to your @iitk ID !');
+            return of('');
           } else if (err.status === 404) {
             return of('Your phone number is invalid');
           } else if (err.status === 400) {

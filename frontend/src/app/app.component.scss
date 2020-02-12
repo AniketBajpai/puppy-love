@@ -18,7 +18,7 @@ img {
   margin-bottom: 0px;
   padding-top: 0px;
   padding-bottom: 0px;
-  width: 20em;
+  width: 25em;
 }
 
 h1 {
@@ -52,6 +52,7 @@ body {
   text-align: center;
   position: relative;
 }
+
 h1 {
   color: #000;
   font-family: 'Cardo', serif;
@@ -89,6 +90,13 @@ em::after {
   letter-spacing: 0.07em;
   font-size: 1em;
   display: block;
+}
+
+h2 {
+  font-family: 'Cardo', serif;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  margin-top: 0.5em;
 }
 
 @media screen and (max-width: 1040px) {

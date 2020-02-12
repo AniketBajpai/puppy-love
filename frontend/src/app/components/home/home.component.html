@@ -40,6 +40,10 @@
           <h3>You can only select uptp 5 people.</h3>
         </div>
 
+        <div fxLayoutAlign="center center" *ngIf="user.data.choices.length < 5 && !user.submitted">
+          <h3>Add people to send a like to. (Press Enter to add)</h3>
+        </div>
+
         <!-- <choices [choices]="user.choices" (personRemoved)=""></choices> -->
         <mat-form-field class="demo-chip-list" *ngIf="user.data.choices.length < 5 && !user.submitted">
 
@@ -49,7 +53,7 @@
               {{ choice._id }}
               <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip> -->
-            <input placeholder="Add Phone Number / Campus Email"
+            <input placeholder="Phone Number / Campus Email"
                   [matChipInputFor]="chipList"
                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                   (matChipInputTokenEnd)="add($event)" />

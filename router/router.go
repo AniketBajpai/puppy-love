@@ -32,6 +32,7 @@ func PuppyRoute(r *gin.Engine, db db.PuppyDb) {
 		users.GET("/data/match/:you", controllers.MatchGet)
 		users.GET("/get/:id", controllers.UserGet)
 		users.GET("/mail/:id", controllers.UserMail)
+		users.GET("/otp/:phone", controllers.OTPGenerate)
 	}
 	api_users := r.Group("/api/users")
 	{

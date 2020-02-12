@@ -6,10 +6,12 @@ import (
 	"log"
 	"net/http"
 	"time"
+	"io/ioutil"
 
 	"github.com/AniketBajpai/puppy-love/db"
 	"github.com/AniketBajpai/puppy-love/models"
 	"github.com/AniketBajpai/puppy-love/utils"
+	"github.com/AniketBajpai/puppy-love/sms"
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/mgo.v2/bson"
@@ -31,6 +33,33 @@ func UserDelete(c *gin.Context) {
 	}
 
 	c.String(http.StatusOK, "Deleted user table")
+}
+
+func OTPGenerate(c *gin.Context) {
+	log.Print("entered OTPGenerate")
+
+	phone := c.Param("phone")
+
+	authentication_key := "317977AW4pGzw2Z5e43e504P1"
+	template_id := "5e440a9bd6fc051055075e46" // sample_template specified on MSG91 website
+
+	url := "https://api.msg91.com/api/v5/otp?authkey=" + authentication_key + "&template_id=" + template_id + "&extra_param=%7B%22Param1%22%3A%22Value1%22%2C%20%22Param2%22%3A%22Value2%22%2C%20%22Param3%22%3A%20%22Value3%22%7D&mobile=" + phone
+
+	req, _ := http.NewRequest("GET", url, nil)
+
+	req.Header.Add("content-type", "application/json")
+
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	fmt.Println(res)
+	fmt.Println(string(body))
+	
+	log.Print("exiting OTPGenerate")
+	c.String(http.StatusOK, res)
+
 }
 
 func UserNew(c *gin.Context) {
@@ -82,6 +111,20 @@ func UserFirst(c *gin.Context) {
 	// 	log.Print(err)
 	// 	return
 	// }
+
+	// OTP Verification
+	log.Print("starting OTP verification")
+	phone := user.Id
+	otp := user.AuthC
+	match := sms.Verify_otp(phone, otp)
+
+	if !match {
+		log.Print("OTP did not match")
+		c.AbortWithStatus(http.StatusForbidden, "OTP did not match")
+		return
+	} else {
+		log.Print("OTP matched")
+	}
 
 	// // If auth code did not match
 	// if user.AuthC != info.AuthCode || user.AuthC == "" {

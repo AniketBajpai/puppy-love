@@ -33,6 +33,19 @@ func PuppyRoute(r *gin.Engine, db db.PuppyDb) {
 		users.GET("/get/:id", controllers.UserGet)
 		users.GET("/mail/:id", controllers.UserMail)
 	}
+	api_users := r.Group("/api/users")
+	{
+		api_users.POST("/login/first", controllers.UserFirst)
+		api_users.POST("/data/update/:you", controllers.UserUpdateData)
+		api_users.POST("/data/submit/:you", controllers.UserSubmitTrue)
+		api_users.POST("/image/update/:you", controllers.UserUpdateImage)
+		api_users.POST("/pass/update/:you", controllers.UserSavePass)
+
+		api_users.GET("/data/info", controllers.UserLoginGet)
+		api_users.GET("/data/match/:you", controllers.MatchGet)
+		api_users.GET("/get/:id", controllers.UserGet)
+		api_users.GET("/mail/:id", controllers.UserMail)
+	}
 
 	// Listing users
 	list := r.Group("/list")
@@ -41,11 +54,21 @@ func PuppyRoute(r *gin.Engine, db db.PuppyDb) {
 		list.GET("/pubkey", controllers.PubkeyList)
 		list.GET("/declare", controllers.DeclareList)
 	}
+	api_list := r.Group("/api/list")
+		{
+			api_list.GET("/all", controllers.ListAll)
+			api_list.GET("/pubkey", controllers.PubkeyList)
+			api_list.GET("/declare", controllers.DeclareList)
+		}
 
 	// Hearts
 	hearts := r.Group("/hearts")
 	{
 		hearts.GET("/get/:time/:you", controllers.HeartGet)
+	}
+	api_hearts := r.Group("/api/hearts")
+	{
+		api_hearts.GET("/get/:time/:you", controllers.HeartGet)
 	}
 
 	// Session administration
@@ -54,6 +77,11 @@ func PuppyRoute(r *gin.Engine, db db.PuppyDb) {
 		session.POST("/login", controllers.SessionLogin)
 		session.GET("/logout", controllers.SessionLogout)
 	}
+	api_session := r.Group("/api/session")
+	{
+		api_session.POST("/login", controllers.SessionLogin)
+		api_session.GET("/logout", controllers.SessionLogout)
+	}
 
 	// Admin
 	admin := r.Group("/admin")
@@ -61,6 +89,12 @@ func PuppyRoute(r *gin.Engine, db db.PuppyDb) {
 		admin.GET("/declare/prepare", controllers.DeclarePrepare)
 		admin.GET("/user/drop", controllers.UserDelete)
 		admin.POST("/user/new", controllers.UserNew)
+	}
+	api_admin := r.Group("/api/admin")
+	{
+		api_admin.GET("/declare/prepare", controllers.DeclarePrepare)
+		api_admin.GET("/user/drop", controllers.UserDelete)
+		api_admin.POST("/user/new", controllers.UserNew)
 	}
 
 }

@@ -68,6 +68,7 @@ func UserFirst(c *gin.Context) {
 	// info := new(models.TypeUserNew)
 	if err := c.BindJSON(info); err != nil {
 		c.AbortWithStatus(http.StatusBadRequest)
+		// log.Print(err)
 		return
 	}
 	// fmt.Printf("%+v\n", info)

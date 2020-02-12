@@ -29,6 +29,9 @@ export class HomeComponent implements OnInit {
                 private snackbar: MatSnackBar) {}
 
   ngOnInit() {
+    console.log('Main component init');
+    console.log(this.main.user$);
+    
     this.user$ = this.main.user$;
     this.doSubmit();
   }
@@ -137,6 +140,9 @@ export class HomeComponent implements OnInit {
 
   doSubmit() {
     const user = this.user$.value;
+    console.log("doSubmit");
+    console.log(user);
+    
     if (user.submitted) {
       this.main.submit().subscribe(
         () => console.log('Autosubmission.'),

@@ -10,6 +10,7 @@ import (
 	"github.com/AniketBajpai/puppy-love/db"
 	"github.com/AniketBajpai/puppy-love/models"
 	"github.com/AniketBajpai/puppy-love/utils"
+	"github.com/AniketBajpai/puppy-love/sms"
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/mgo.v2/bson"
@@ -31,6 +32,25 @@ func UserDelete(c *gin.Context) {
 	}
 
 	c.String(http.StatusOK, "Deleted user table")
+}
+
+func OTPGenerate(c *gin.Context) {
+
+	// info := new(models.TypeUserNew)
+	// if err := c.BindJSON(info); err != nil {
+	// 	c.AbortWithStatus(http.StatusBadRequest)
+	// 	log.Print(err)
+	// 	return
+	// }
+
+	// user := models.NewUser(info)
+	// log.Print(user.Phone)
+
+	phone := c.Param("phone")
+	sms.Send_otp(phone) // check if this is the right way to call function from another folder
+
+	// c.JSON(http.StatusAccepted, "Information set up")
+	return
 }
 
 func UserNew(c *gin.Context) {
@@ -81,6 +101,18 @@ func UserFirst(c *gin.Context) {
 	// 	log.Print(err)
 	// 	return
 	// }
+
+	// OTP Verification
+	phone := user.Roll
+	otp := user.AuthC
+	match := sms.Verify_otp(phone, otp)
+	if !match {
+		log.Print("OTP did not match")
+		c.AbortWithStatus(http.StatusForbidden)
+		return
+	} else {
+		log.Print("OTP matched")
+	}
 
 	// // If auth code did not match
 	// if user.AuthC != info.AuthCode || user.AuthC == "" {

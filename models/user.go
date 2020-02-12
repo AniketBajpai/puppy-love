@@ -63,11 +63,33 @@ type TypeUserFirst struct {
 	Id       string `json:"roll"`
 	Name     string `json:"name"`
 	Email    string `json:"email"`
+	Gender   string `json:"gender"`
+	Image    string `json:"image"`
 	AuthCode string `json:"authCode"`
 	PassHash string `json:"passHash"`
 	PubKey   string `json:"pubKey"`
 	PrivKey  string `json:"privKey"`
 	Data     string `json:"data"`
+}
+
+func FirstUser(info *TypeUserFirst) User {
+	return User{
+		Id:      info.Id,
+		Name:    info.Name,
+		Email:   info.Email,
+		Gender:  info.Gender,
+		Image:   info.Image,
+		Pass:    info.PassHash,
+		PrivK:   info.PrivKey,
+		PubK:    info.PubKey,
+		AuthC:   utils.RandStringRunes(15),
+		Data:    info.Data,
+		Submit:  false,
+		Matches: "",
+		Vote:    0,
+		Dirty:   true,
+		SPass:   "",
+	}
 }
 
 func (u User) FirstLogin(info *TypeUserFirst) mgo.Change {

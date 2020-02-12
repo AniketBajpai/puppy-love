@@ -105,10 +105,11 @@ export class MainService {
     });
   }
 
-  private getInfo(username:string, password: string) {
-    const info = this.http.get<LoginData>('/api/users/data/info')
+  private getInfo(username:string, password: string) { const info = this.http.get<LoginData>('/api/users/data/info')
       .pipe(
         map(x => {
+          console.log("User data");
+          console.log(x);
           const crypto = new Crypto(password);
           crypto.deserializePriv(crypto.decryptSym(x.privKey));
           crypto.deserializePub(x.pubKey);
@@ -233,8 +234,7 @@ export class MainService {
   public login(username: string, _password: string) {
     const password = Crypto.hash(Crypto.hash(Crypto.hash(_password)));
     return this.http.post('/api/session/login', { username, password }).pipe(
-      switchMap(() => this.getInfo(username, _password)),
-      switchMap((user) => this.getHearts(user)),
+      switchMap(() => this.getInfo(username, _password)), switchMap((user) => this.getHearts(user)),
       catchError((err) => {
         console.log(err);
         if (err.error instanceof Error) {

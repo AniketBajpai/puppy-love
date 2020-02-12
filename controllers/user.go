@@ -64,15 +64,15 @@ func UserNew(c *gin.Context) {
 // ------------------
 // TODO! - add OTP verification!
 func UserFirst(c *gin.Context) {
-	// info := new(models.TypeUserFirst)
-	info := new(models.TypeUserNew)
+	info := new(models.TypeUserFirst)
+	// info := new(models.TypeUserNew)
 	if err := c.BindJSON(info); err != nil {
 		c.AbortWithStatus(http.StatusBadRequest)
 		return
 	}
 	// fmt.Printf("%+v\n", info)
 
-	user := models.NewUser(info)
+	user := models.FirstUser(info)
 	// fmt.Printf("%+v\n", user)
 
 	// // Fetch user

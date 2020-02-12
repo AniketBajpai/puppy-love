@@ -17,14 +17,27 @@
   </form>
 </mat-card-content>
 
-<mat-card-title>
+<div *ngIf="phoneStore">
+  Continue by filling the form below to make an account.
+</div>
+
+<br>
+<!-- <hr> -->
+<mat-card-title *ngIf="phoneStore">
   Signup
 </mat-card-title>
-<mat-card-content>
-  <div class="mat-caption">
-    Note) This email can be used by others to send you a like. It can't be changed later.
-  </div>
+<mat-card-content *ngIf="phoneStore">
   <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="authCode"
+        placeholder="Auth Code (OTP)">
+    </mat-form-field>
+
+    <div class="mat-caption" *ngIf="phoneStore">
+      Note) This email can be used by others to send you a like. It can't be changed later.
+    </div>
     <mat-form-field>
       <input
         matInput
@@ -46,19 +59,15 @@
         placeholder="Gender (M/F)">
     </mat-form-field>
 
+    <div class="mat-caption" *ngIf="phoneStore">
+      Note) Password cannot be changed later. Do not forget it.
+    </div>
     <mat-form-field>
       <input
         type="password"
         matInput
         formControlName="password"
         placeholder="Password">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input
-        matInput
-        formControlName="authCode"
-        placeholder="Auth Code (OTP)">
     </mat-form-field>
 
     <button mat-button> Signup </button>

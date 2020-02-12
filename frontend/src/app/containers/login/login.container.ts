@@ -20,9 +20,18 @@ export class LoginComponent {
   onLogin(login: { username: string, password: string }) {
     this.loading = true;
     this.main.login(login.username, login.password)
-      .finally(() => this.loading = false)
+      .finally(
+        function() {
+          console.log("Finally!");
+          this.loading = false;
+        })
+        // () => this.loading = false)
       .subscribe(
-        () => this.router.navigate([ 'home' ]),
+        // function() {
+        //   console.log("Redirecting to home!");
+        //   this.router.navigate([ '/home' ]);
+        // },
+        () => this.router.navigate([ '/home' ]),
         (err) => this.snackBar.open(err, '', {
           duration: 3000
         }));

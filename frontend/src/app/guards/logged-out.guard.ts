@@ -9,8 +9,13 @@ export class LoggedOutGuard implements CanActivate {
               private main: MainService) {}
 
   canActivate() {
+    console.log("logged-out guard");
+    
     if (this.main.loggedIn) {
+      console.log("loggedIn");
       this.router.navigate([ '/home' ]);
+    } else {
+      console.log("not loggedIn");
     }
     return !this.main.loggedIn;
   }

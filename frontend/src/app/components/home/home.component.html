@@ -10,13 +10,10 @@
     </mat-card> -->
 
     <mat-card class="profile bigonly">
-      <!-- <img mat-card-image [src]="user.image" alt="You?"> -->
-      <!-- <div mat-card-image class="profile-pic" [style.background-image]="url">
-      </div> -->
       <mat-card-title> Hi {{ user.name }} </mat-card-title>
       <mat-card-content>
         <button mat-button>
-          <mat-icon>{{ user.submitted ? 'check' : 'close' }}</mat-icon>
+          <mat-icon color="primary">{{ user.submitted ? 'check' : 'close' }}</mat-icon>
           {{ user.submitted ? 'Submitted!' : 'Not Submitted' }}
         </button>
         <hr>
@@ -25,8 +22,8 @@
           Logout
         </button>
         <a mat-button routerLink="/about"> About the platform </a>
+        <a mat-button routerLink="/howto"> How it Works </a>
         <a mat-button href="https://github.com/AniketBajpai/puppy-love"> Source Code </a>
-        <!-- <a mat-button href="http://pclub.in"> pclub.in </a> -->
       </mat-card-content>
     </mat-card>
 

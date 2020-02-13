@@ -173,7 +173,7 @@ export class MainService {
     // Trim down choices to 4
     let count = Math.min(4, cnt);
     for (let i = 0; i < count; i++) {
-      declarePayload['t' + i] = declarevalues[i];
+      declarePayload['t' + i] = JSON.stringify(declarevalues[i]);
     }
     for (let i = count; i < 4; i++) {
       declarePayload['t' + i] = '';

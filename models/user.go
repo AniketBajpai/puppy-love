@@ -124,3 +124,9 @@ type HeartsAndChoices struct {
 	Hearts []GotHeart `json:"hearts"`
 	Tokens Declare    `json:"tokens"`
 }
+
+type DeclareTarget struct {
+	Id		string	`json:"_id" bson:"_id"`
+	Name	string	`json:"name" bson:"name"`
+	IsEmail	string	`json:"email" bson:"email"`
+}

@@ -354,6 +354,32 @@ func declareStep(user models.User, info models.Declare) error {
 		return errors.New("Invalid session/userId")
 	}
 
+	// Send messages to declarees
+	var person0 DeclareTarget;
+	var person1 DeclareTarget;
+	var person2 DeclareTarget;
+	var person3 DeclareTarget;
+	if info.Token0 != "" {
+		err0 := json.Unmarshal([]byte(info.Token0), person0); err0 != nil {
+			return err0
+		}
+	}
+	if info.Token1 != "" {
+		err1 := json.Unmarshal([]byte(info.Token1), person1); err1 != nil {
+			return err1
+		}
+	}
+	if info.Token2 != "" {
+		err2 := json.Unmarshal([]byte(info.Token2), person2); err2 != nil {
+			return err2
+		}
+	}
+	if info.Token3 != "" {
+		err3 := json.Unmarshal([]byte(info.Token3), person3); err3 != nil {
+			return err3
+		}
+	}
+
 	// TODO: fix db name to not be a constant
 	if _, err := Db.GetCollection("declare").UpsertId(user.Id, bson.M{
 		"t0": info.Token0,
@@ -401,7 +427,7 @@ func sendHearts(user models.User, info []models.GotHeart) error {
 	log.Print("Earlier count: ", len(*userVotes))
 	log.Print("Sent new: ", len(diffHearts))
 
-	if len(diffHearts)+len(*userVotes) > 4 {
+	if len(diffHearts) + len(*userVotes) > 4 {
 		return errors.New("More than allowed votes")
 	}
 
@@ -442,32 +468,16 @@ func UserUpdateData(c *gin.Context) {
 		return
 	}
 
-	type UpdateDataChoice struct {
-		Id		string	`json:"_id" bson:"_id"`
-		Name	string	`json:"name" bson:"name"`
-		IsEmail	string	`json:"email" bson:"email"`
-	}
-	type UpdateDataHeart struct {
-		Id		string	`json:"_id" bson:"_id"`
-		Name	string	`json:"name" bson:"name"`
-		IsEmail	string	`json:"email" bson:"email"`
-	}
-	type UpdateDataReceived struct {
-		Id		string	`json:"_id" bson:"_id"`
-		Name	string	`json:"name" bson:"name"`
-		IsEmail	string	`json:"email" bson:"email"`
-	}
-
 	type typeUserUpdateDataStr struct {
 		Data string `json:"data"`
 	}
 
 	// TODO: check definitions of UpdateDataHeart and UpdateDataReceived
 	type typeUserUpdateData struct {
-		Choices []UpdateDataChoice `json:"choices"`
-		Hearts []UpdateDataHeart `json:"hearts"`
+		Choices []DeclareTarget `json:"choices"`
+		Hearts []GotHeart `json:"hearts"`
 		lastCheck int `json:"lastCheck"`
-		Received []UpdateDataReceived `json:"received"`
+		Received []GotHeart `json:"received"`
 	}
 
 	infoStr := new(typeUserUpdateDataStr)

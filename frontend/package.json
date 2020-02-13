@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy proxy.conf.json --disable-host-check",
-    "build": "ng build -prod -aot -vc -cc --build-optimizer",
+    "build": "ng build -prod -aot -vc -cc --build-optimizer --outputPath=/home/konscience/build",
     "test": "ng test",
     "deploy": "http-server -p 4200 -P http://localhost:4200? ./dist",
     "dev": "lite-server --baseDir=\"dist\"",

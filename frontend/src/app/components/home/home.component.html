@@ -41,7 +41,7 @@
         </div>
 
         <div fxLayoutAlign="center center" *ngIf="user.data.choices.length < 5 && !user.submitted">
-          <center><h3>Add people to send a like to Anonymously. <br> (Our algorithm keeps your data cryptographically safe)</h3></center>
+          <h3 style="text-align: center;">Add people to send a like to Anonymously. <br> (Our algorithm keeps your data cryptographically safe)</h3>
 
         </div>
 
@@ -61,10 +61,6 @@
         </form>
 
         <br>
-
-        <!-- <div fxLayoutAlign="center center" *ngIf="user.data.choices.length < 5 && !user.submitted">
-          <h3>Add people to send a like to Anonymously.</h3>
-        </div> -->
 
         <!-- <div fxLayout="column" fxLayoutAlign="center center" *ngIf="user.data.choices.length !== 0"> -->
         <div fxLayoutAlign="center center">
@@ -94,7 +90,7 @@
         <hr>
         
         <div fxLayout="row" *ngIf="femaleHearts(user).length + maleHearts(user).length !== 0">
-          <h3>Total Hearts Received:</h3>
+          <h3>Number of hearts from your crushes:</h3>
         </div>
         <div fxLayout="row" fxLayoutAlign="start center">
           <img class="lovely-heart" *ngFor="let h of maleHearts(user).slice(0, 9)" src="/assets/heart.png">
@@ -108,7 +104,7 @@
         </div> -->
         <div *ngIf="femaleHearts(user).length + maleHearts(user).length === 0"
              fxLayout="column" fxLayoutAlign="center center">
-          <h3>Sorry, you haven't gotten any hearts (yet).</h3>
+          <h3>Sorry, you haven't gotten any hearts from crushes (yet).</h3>
           <blockquote>True love comes to those who wait.</blockquote>
         </div>
         <!-- <hearts [breakloop]="breakvoteloop"> </hearts> -->

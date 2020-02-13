@@ -369,7 +369,7 @@ func declareStep(user models.User, info models.Declare) error {
 	var person2 models.DeclareTarget;
 	var person3 models.DeclareTarget;
 	var person4 models.DeclareTarget;
-	heartMessage := "You have a secret admirer on your campus! Send your likes anonomously by visiting playmates.me and see if there is a mutual spark this Valentine's Day!";
+	heartMessage := "You have a secret admirer on Playmates! Send your likes anonymously by visiting playmates.me and see if there is a mutual spark this Valentine's Day!";
 	// heartMessage := "You have a secret admirer on your campus! To find out more, go to playmates.me";
 	if info.Token0 != "" {
 		err0 := json.Unmarshal([]byte(info.Token0), &person0);

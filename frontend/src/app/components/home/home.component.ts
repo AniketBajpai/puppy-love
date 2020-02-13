@@ -3,7 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MatChipInputEvent } from '@angular/material';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
-
+import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MainService, Person } from '../../services/main.service';
 
 function ImageURL(rollnum: string, userid: string) {
@@ -23,15 +23,22 @@ export class HomeComponent implements OnInit {
   separatorKeysCodes = [ENTER, COMMA];
 
   user$: any;
+  addForm: FormGroup;
 
     constructor(private main: MainService,
+                private fb: FormBuilder,
                 private sanitizer: DomSanitizer,
-                private snackbar: MatSnackBar) {}
+                private snackbar: MatSnackBar) {
+
+    // Create Form
+    this.addForm = this.fb.group({
+      contact: ['', Validators.required],
+    });
+  }
 
   ngOnInit() {
     console.log('Main component init');
     console.log(this.main.user$);
-    
     this.user$ = this.main.user$;
     // this.doSubmit();
   }
@@ -51,11 +58,9 @@ export class HomeComponent implements OnInit {
     return user.data.received.filter((x) => x.genderOfSender === '0');
   }
 
-  add(event): void {
+  add(): void {
     console.log('Adding Event');
-    console.log(event);
-    console.log(event._id);
-    console.log(event.value);
+    console.log(this.addForm.value.contact);
 
     const currentUser = {
       ...this.main.user$.value
@@ -63,21 +68,21 @@ export class HomeComponent implements OnInit {
     console.log('User Id');
     console.log(currentUser._id)
 
-    if (!event) {
-      return;
-    }
-
     var event_user : Person = {
       _id : "",
       name : "",
       email : ""
     };
 
-    // Remove spaces and remove +91
-    event.value = event.value.replace(/\s/g,'').replace('+91', '')
+    if(!this.addForm.value.contact) {
+      return;
+    }
 
-    if (!isNaN(event.value)) {
-      if (event.value.length != 10) {
+    // Remove spaces and remove +91
+    this.addForm.value.contact = this.addForm.value.contact.replace(/\s/g,'').replace('+91', '')
+
+    if (!isNaN(this.addForm.value.contact)) {
+      if (this.addForm.value.contact.length != 10) {
         this.snackbar.open('Please enter a valid number of 10 digits', '', { duration: 3000 });
         return;
       } 
@@ -85,7 +90,7 @@ export class HomeComponent implements OnInit {
         console.log('Phone Detected')
       }
     } else {
-      if (event.value.indexOf('@') != -1 && event.value.indexOf('.') != -1) {
+      if (this.addForm.value.contact.indexOf('@') != -1 && this.addForm.value.contact.indexOf('.') != -1) {
         console.log('Email Detected')
         event_user.email = "true";
       }
@@ -95,9 +100,9 @@ export class HomeComponent implements OnInit {
       }
     }
 
-    if (event.value !== currentUser._id && event.value !== currentUser.email && !currentUser.data.choices.some((x) => x._id === event.value)) {
+    if (this.addForm.value.contact !== currentUser._id && this.addForm.value.contact !== currentUser.email && !currentUser.data.choices.some((x) => x._id === this.addForm.value.contact)) {
       console.log('Push is approved');
-      event_user._id = event.value;
+      event_user._id = this.addForm.value.contact;
       console.log(event_user);
       currentUser.data.choices.push(event_user);
       this.main.user$.next(currentUser);

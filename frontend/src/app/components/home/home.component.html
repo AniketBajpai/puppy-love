@@ -41,32 +41,37 @@
         </div>
 
         <div fxLayoutAlign="center center" *ngIf="user.data.choices.length < 5 && !user.submitted">
-          <h3>Add people to send a like to (Totally Anonymous). Press Enter to add</h3>
+          <center><h3>Add people to send a like to Anonymously. <br> (Our algorithm keeps your data cryptographically safe)</h3></center>
+
         </div>
 
         <!-- <choices [choices]="user.choices" (personRemoved)=""></choices> -->
-        <mat-form-field class="demo-chip-list" *ngIf="user.data.choices.length < 5 && !user.submitted">
-
-          <mat-chip-list #chipList>
-<!--             <mat-chip *ngFor="let choice of user.data.choices" [selectable]="true"
-              [removable]="true" (remove)="remove(choice)">
-              {{ choice._id }}
-              <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip> -->
-            <input placeholder="Phone Number / Campus Email"
-                  [matChipInputFor]="chipList"
-                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                  (matChipInputTokenEnd)="add($event)" />
-          </mat-chip-list>
-
-        </mat-form-field>
         
+        <form fxLayoutAlign="center center" [formGroup]="addForm" (ngSubmit)="add()" *ngIf="user.data.choices.length < 5 && !user.submitted">
+          <mat-form-field style="width: 70%; float: left;">
+            <input 
+              matInput
+              formControlName="contact"
+              placeholder="Enter Contact Mobile Number">
+          </mat-form-field>
+          <button mat-button style="width: 25%; float: left; background-color : #fadadd"> 
+            <mat-icon>add</mat-icon>
+            Add
+          </button>
+        </form>
+
+        <br>
+
+        <!-- <div fxLayoutAlign="center center" *ngIf="user.data.choices.length < 5 && !user.submitted">
+          <h3>Add people to send a like to Anonymously.</h3>
+        </div> -->
+
         <!-- <div fxLayout="column" fxLayoutAlign="center center" *ngIf="user.data.choices.length !== 0"> -->
-        <div fxLayout="column" fxLayoutAlign="center center">
-          <h2>Your choices:</h2>
-          <div *ngIf="!user.submitted">(Click to remove)</div>
+        <div fxLayoutAlign="center center">
+          <h2>Your choices: </h2> <br>
+          <div *ngIf="!user.submitted" style="padding-left: 1em;">(Click on card to remove)</div>
         </div>
-        <div fxLayout="row wrap" fxLayoutAlign="center center">
+        <div fxLayoutAlign="center center">
           <puppy-student *ngFor="let choice of user.data.choices" [student]="choice" (select)="remove(choice)">{{ choice._id }}</puppy-student>
         </div>
 
@@ -77,10 +82,12 @@
           <mat-icon>save</mat-icon>
           Save your choices!
         </button>
+
+        <hr>
         <!-- <button mat-button (click)="onSubmit()" *ngIf="!user.submitted"> -->
         <button mat-button (click)="onSubmit()" *ngIf="!user.submitted">
           <mat-icon>sentiment_very_satisfied</mat-icon>
-          Final Submit! (Make sure you have added all your choices. Upto 5)
+          Final Submit! <br> (Make sure you have added all your choices. Upto 5)
         </button>
         <!-- <hr *ngIf="!user.submitted"> -->
         

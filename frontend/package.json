@@ -5,9 +5,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy proxy.conf.json --disable-host-check",
-    "build": "ng build -prod -aot --watch -vc -cc --build-optimizer",
+    "build": "ng build -prod -aot -vc -cc --build-optimizer",
     "test": "ng test",
-    "deploy": "http-server -p 80 -P http://localhost:80? ./dist",
+    "deploy": "http-server -p 4200 -P http://localhost:4200? ./dist",
     "dev": "lite-server --baseDir=\"dist\"",
     "lint": "ng lint",
     "e2e": "ng e2e"

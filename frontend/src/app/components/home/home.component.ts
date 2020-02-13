@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     console.log(this.main.user$);
     
     this.user$ = this.main.user$;
-    this.doSubmit();
+    // this.doSubmit();
   }
 
   get url() {

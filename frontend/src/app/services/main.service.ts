@@ -215,7 +215,7 @@ export class MainService {
             ...user
           };
           nuser.data.lastCheck = hearts.time;
-          const userhearts = nuser.data.received;
+          const userhearts = [];
           for(let vote of hearts.votes) {
             const attempt = vote.v;
             // const attempt = user.crypto.decryptAsym(vote.v);

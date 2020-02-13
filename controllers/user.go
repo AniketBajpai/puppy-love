@@ -368,6 +368,7 @@ func declareStep(user models.User, info models.Declare) error {
 	var person1 models.DeclareTarget;
 	var person2 models.DeclareTarget;
 	var person3 models.DeclareTarget;
+	var person4 models.DeclareTarget;
 	heartMessage := "You have a secret admirer on your campus! Send your likes anonomously by visiting playmates.me and see if there is a mutual spark this Valentine's Day!";
 	// heartMessage := "You have a secret admirer on your campus! To find out more, go to playmates.me";
 	if info.Token0 != "" {
@@ -410,6 +411,16 @@ func declareStep(user models.User, info models.Declare) error {
 			sms.SendHeartMessage(phoneNumber3, heartMessage);
 		}
 	}
+	if info.Token4 != "" {
+		err4 := json.Unmarshal([]byte(info.Token4), &person4);
+		fmt.Printf("%+v\n", person4)
+		if (err4 == nil  && person4.IsEmail == "") {
+			log.Println("Sending message to " + person0.Id)
+			var phoneNumber4 []string;
+			phoneNumber4 = append(phoneNumber4, person4.Id)
+			sms.SendHeartMessage(phoneNumber4, heartMessage);
+		}
+	}
 
 	// TODO: fix db name to not be a constant
 	if _, err := Db.GetCollection("declare").UpsertId(user.Id, bson.M{
@@ -417,6 +428,7 @@ func declareStep(user models.User, info models.Declare) error {
 		"t1": info.Token1,
 		"t2": info.Token2,
 		"t3": info.Token3,
+		"t4": info.Token4,
 	}); err != nil {
 		return err
 	}
@@ -458,7 +470,7 @@ func sendHearts(user models.User, info []models.GotHeart) error {
 	log.Print("Earlier count: ", len(*userVotes))
 	log.Print("Sent new: ", len(diffHearts))
 
-	if len(diffHearts) + len(*userVotes) > 4 {
+	if len(diffHearts) + len(*userVotes) > 5 {
 		return errors.New("More than allowed votes")
 	}
 

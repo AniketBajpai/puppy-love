@@ -67,6 +67,7 @@ interface Declare {
   t1: string;
   t2: string;
   t3: string;
+  t4: string;
 }
 
 interface ReceivedHeart {
@@ -172,13 +173,13 @@ export class MainService {
       cnt = cnt + 1;
     }
     
-    // Trim down choices to 4
-    let count = Math.min(4, cnt);
+    // Trim down choices to 5
+    let count = Math.min(5, cnt);
     for (let i = 0; i < count; i++) {
       console.log(declarevalues[i]);
       declarePayload['t' + i] = JSON.stringify(declarevalues[i]);
     }
-    for (let i = count; i < 4; i++) {
+    for (let i = count; i < 5; i++) {
       declarePayload['t' + i] = '';
     }
 

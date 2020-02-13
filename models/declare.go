@@ -12,6 +12,7 @@ type (
 		Token1 string `json:"t1" bson:"t1"`
 		Token2 string `json:"t2" bson:"t2"`
 		Token3 string `json:"t3" bson:"t3"`
+		Token4 string `json:"t4" bson:"t4"`
 	}
 	PairUpsert struct {
 		Selector bson.M
@@ -27,6 +28,7 @@ func UpsertDeclareTable(d *Declare) mgo.Change {
 			"t1": d.Token1,
 			"t2": d.Token2,
 			"t3": d.Token3,
+			"t4": d.Token4,
 		}},
 		ReturnNew: true,
 	}
@@ -43,6 +45,7 @@ func NewDeclareTable(id string) PairUpsert {
 			"t1":  "",
 			"t2":  "",
 			"t3":  "",
+			"t4":  "",
 		}},
 	}
 }

@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"log"
+	// "log"
 	"net/http"
-	"strconv"
+	// "strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -18,12 +18,12 @@ func HeartGet(c *gin.Context) {
 		return
 	}
 
-	// Last checked time
-	ltime, err := strconv.ParseUint(c.Param("time"), 10, 64)
-	if err != nil {
-		c.String(http.StatusBadRequest, "Bad timestamp value")
-		return
-	}
+	// // Last checked time
+	// ltime, err := strconv.ParseUint(c.Param("time"), 10, 64)
+	// if err != nil {
+	// 	c.String(http.StatusBadRequest, "Bad timestamp value")
+	// 	return
+	// }
 
 	// Current time
 	ctime := uint64(time.Now().UnixNano() / 1000000)
@@ -34,23 +34,28 @@ func HeartGet(c *gin.Context) {
 		GenderOfSender string `json:"genderOfSender" bson:"gender"`
 	}
 
-	votes := new([]AnonymVote)
-
-	// Fetch user
-	if err := Db.GetCollection("heart").
-		Find(bson.M{"time": bson.M{"$gt": ltime, "$lte": ctime}}).
-		All(votes); err != nil {
-		c.AbortWithStatus(http.StatusNotFound)
-		log.Print(err)
-		return
+	var votes = []AnonymVote { 
+		AnonymVote {
+			Value: "1", 
+			GenderOfSender: "0",
+		},
 	}
 
-	if *votes == nil {
-		*votes = []AnonymVote{}
-	}
+	// // Fetch user
+	// if err := Db.GetCollection("heart").
+	// 	Find(bson.M{"time": bson.M{"$gt": ltime, "$lte": ctime}}).
+	// 	All(votes); err != nil {
+	// 	c.AbortWithStatus(http.StatusNotFound)
+	// 	log.Print(err)
+	// 	return
+	// }
+
+	// if *votes == nil {
+	// 	*votes = []AnonymVote{}
+	// }
 
 	c.JSON(http.StatusAccepted, bson.M{
-		"votes": *votes,
+		"votes": votes,
 		"time":  ctime,
 	})
 }

@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 	"strings"
-	"io/ioutil"
+	// "io/ioutil"
 
 	"github.com/AniketBajpai/puppy-love/db"
 	"github.com/AniketBajpai/puppy-love/models"
@@ -54,7 +54,7 @@ func OTPGenerate(c *gin.Context) {
 	res, _ := http.DefaultClient.Do(req)
 
 	defer res.Body.Close()
-	body, _ := ioutil.ReadAll(res.Body)
+	// body, _ := ioutil.ReadAll(res.Body)
 
 	log.Print("exiting OTPGenerate")
 	c.String(http.StatusOK, "OTP sent to your phone!")
@@ -442,20 +442,46 @@ func UserUpdateData(c *gin.Context) {
 		return
 	}
 
-	type typeUserUpdateData struct {
+	type UpdateDataChoice struct {
+		Id		string	`json:"_id" bson:"_id"`
+		Name	string	`json:"name" bson:"name"`
+		IsEmail	string	`json:"email" bson:"email"`
+	}
+	type UpdateDataHeart struct {
+		Id		string	`json:"_id" bson:"_id"`
+		Name	string	`json:"name" bson:"name"`
+		IsEmail	string	`json:"email" bson:"email"`
+	}
+	type UpdateDataReceived struct {
+		Id		string	`json:"_id" bson:"_id"`
+		Name	string	`json:"name" bson:"name"`
+		IsEmail	string	`json:"email" bson:"email"`
+	}
+
+	type typeUserUpdateDataStr struct {
 		Data string `json:"data"`
 	}
 
-	info := new(typeUserUpdateData)
-	if err := c.BindJSON(info); err != nil {
+	// TODO: check definitions of UpdateDataHeart and UpdateDataReceived
+	type typeUserUpdateData struct {
+		Choices []UpdateDataChoice `json:"choices"`
+		Hearts []UpdateDataHeart `json:"hearts"`
+		lastCheck int `json:"lastCheck"`
+		Received []UpdateDataReceived `json:"received"`
+	}
+
+	infoStr := new(typeUserUpdateDataStr)
+	// info := new(typeUserUpdateData)
+	if err := c.BindJSON(infoStr); err != nil {
 		c.AbortWithStatus(http.StatusBadRequest)
 		return
 	}
-
+	
+	// log.Println(infoStr)
 	user := models.User{}
 
 	if _, err := Db.GetById("user", id).
-		Apply(user.SetField("data", info.Data), &user); err != nil {
+		Apply(user.SetField("data", infoStr.Data), &user); err != nil {
 
 		c.AbortWithStatus(http.StatusInternalServerError)
 		log.Print(err)

@@ -113,7 +113,10 @@ export class MainService {
           const crypto = new Crypto(password);
           crypto.deserializePriv(crypto.decryptSym(x.privKey));
           crypto.deserializePub(x.pubKey);
-          const data = Crypto.toJson(x.data);
+          var data = { choices: [], hearts: [], lastCheck: 0, received: [], };
+          if (x.data) {
+            data = Crypto.toJson(x.data);
+          }
           // const data = Crypto.toJson(crypto.decryptSym(x.data));
           return {
             _id: x._id,
@@ -160,8 +163,9 @@ export class MainService {
         'genderOfSender': user.gender,
       });
 
-      const pairId = (user._id > p._id ? (user._id + '-' + p._id) : (p._id + '-' + user._id));
-      declarevalues.push(pairId);
+      // const pairId = (user._id > p._id ? (user._id + '-' + p._id) : (p._id + '-' + user._id));
+      // declarevalues.push(pairId);
+      declarevalues.push(p);
       // declarevalues.push(Crypto.hash(pairId + '-' + user.crypto.diffieHellman(pubk)));
       cnt = cnt + 1;
     }

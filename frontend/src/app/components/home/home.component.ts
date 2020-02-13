@@ -73,6 +73,9 @@ export class HomeComponent implements OnInit {
       email : ""
     };
 
+    // Remove spaces and remove +91
+    event.value = event.value.replace(/\s/g,'').replace('+91', '')
+
     if (!isNaN(event.value)) {
       if (event.value.length != 10) {
         this.snackbar.open('Please enter a valid number of 10 digits', '', { duration: 3000 });

@@ -1,5 +1,5 @@
 p {
-  font-size: 35%;
+  font-size: 100%;
   margin-top: 0px;
   margin-bottom: 0px;
   padding-top: 0px;
@@ -19,6 +19,47 @@ img {
   padding-top: 0px;
   padding-bottom: 0px;
   width: 30em;
+}
+
+.little-heart {
+  display: none;
+  vertical-align: center;
+  /*margin-top: -1em;*/
+  margin-bottom: -0.5em;
+  padding: 0em;
+  width: 2em;
+}
+
+.column-left {
+  /*vertical-align: center;*/
+  /*position: relative;*/
+  float: left;
+  width: 30%;
+  padding-top: 4em;
+  /*padding-left: 4em;*/
+}
+
+.column-middle {
+  /*vertical-align: center;*/
+  /*position: relative;*/
+  float: left;
+  width: 40%;
+}
+
+.column-right {
+  /*vertical-align: center;*/
+  /*position: relative;*/
+  float: left;
+  width: 30%;
+  margin-left: 0;
+  padding-top: 4em;
+  /*padding-right: 4em;*/
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 h1 {
@@ -72,6 +113,18 @@ em {
   padding-top: 0.1em;
   text-shadow: 0.07em 0.07em 0 rgba(0, 0, 0, 0.1);
 }
+h3 {
+  font-family: 'EB Garamond', serif;
+  font-size: 2.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  font-style: normal;
+  padding-top: 0.1em;
+  margin-block-end : 0.2em;
+  margin-block-start : 0.5em;
+  text-shadow: 0.07em 0.07em 0 rgba(0, 0, 0, 0.1);
+}
 em::before,
 em::after {
   content: "§";
@@ -105,10 +158,16 @@ h2 {
   em {
     font-size: 2.0em;
   }
+  h3 {
+    font-size: 2.0em;
+  }
 }
 
 @media screen and (max-width: 740px) {
   em {
+    font-size: 1.5em;
+  }
+  h3 {
     font-size: 1.5em;
   }
   img {
@@ -124,10 +183,16 @@ h2 {
     content: "";
     margin: 0 0.0em;
   }
+  h3 {
+    font-size: 1.5em;
+  }
   img {
     width: 15em;
   }
   h2 {
     font-size: 1.05em;
+  }
+  .little-heart {
+    display: none;
   }
 }

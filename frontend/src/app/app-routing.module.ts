@@ -16,7 +16,7 @@ import {
 
 const routes: Routes = [{
   path: '', component: MainComponent, children: [
-    { path: '', pathMatch: 'full', redirectTo: 'login' },
+    { path: '', pathMatch: 'full', redirectTo: 'howto' },
     { path: 'about', component: AboutComponent },
     { path: 'how-it-works', component: HowItWorksComponent },
     { path: 'howto', component: HowToComponent },

@@ -53,7 +53,7 @@
               {{ choice._id }}
               <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip> -->
-            <input placeholder="Phone Number / Campus Email"
+            <input placeholder="Phone Number"
                   [matChipInputFor]="chipList"
                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                   (matChipInputTokenEnd)="add($event)" />

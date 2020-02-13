@@ -37,7 +37,7 @@
         </puppy-search> -->
 
         <div fxLayoutAlign="center center" *ngIf="user.data.choices.length >= 5 && !user.submitted">
-          <h3>You can only select uptp 5 people.</h3>
+          <h3>You can only select upto 5 people.</h3>
         </div>
 
         <div fxLayoutAlign="center center" *ngIf="user.data.choices.length < 5 && !user.submitted">
@@ -73,31 +73,32 @@
         <hr>
 
         <!-- <button mat-button (click)="onSave()" *ngIf="!user.submitted"> -->
-        <button mat-button (click)="onSave()">
+        <button mat-button (click)="onSave()" *ngIf="!user.submitted">
           <mat-icon>save</mat-icon>
           Save your choices!
         </button>
         <!-- <button mat-button (click)="onSubmit()" *ngIf="!user.submitted"> -->
-        <button mat-button (click)="onSubmit()">
+        <button mat-button (click)="onSubmit()" *ngIf="!user.submitted">
           <mat-icon>sentiment_very_satisfied</mat-icon>
-          Lock and submit!
+          Lock and submit! (This is Final)
         </button>
         <!-- <hr *ngIf="!user.submitted"> -->
         
         <hr>
         
-        <div fxLayout="row" *ngIf="maleHearts(user).length !== 0">
-          <h3>Hearts from Males:</h3>
+        <div fxLayout="row" *ngIf="femaleHearts(user).length + maleHearts(user).length !== 0">
+          <h3>Total Hearts Received:</h3>
         </div>
         <div fxLayout="row" fxLayoutAlign="start center">
           <img class="lovely-heart" *ngFor="let h of maleHearts(user).slice(0, 9)" src="/assets/heart.png">
+          <img class="lovely-heart" *ngFor="let h of femaleHearts(user).slice(0, 9)" src="/assets/heart.png">
         </div>
-        <div fxLayout="row" *ngIf="femaleHearts(user).length !== 0">
+        <!-- <div fxLayout="row" *ngIf="femaleHearts(user).length !== 0">
           <h3>Hearts from Females:</h3>
         </div>
         <div fxLayout="row" fxLayoutAlign="start center">
           <img class="lovely-heart" *ngFor="let h of femaleHearts(user).slice(0, 9)" src="/assets/heart.png">
-        </div>
+        </div> -->
         <div *ngIf="femaleHearts(user).length + maleHearts(user).length === 0"
              fxLayout="column" fxLayoutAlign="center center">
           <h3>Sorry, you haven't gotten any hearts (yet).</h3>

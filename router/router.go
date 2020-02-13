@@ -99,4 +99,9 @@ func PuppyRoute(r *gin.Engine, db db.PuppyDb) {
 		api_admin.POST("/user/new", controllers.UserNew)
 	}
 
+	api_message := r.Group("/api/message")
+	{
+		api_message.GET("/heart/:phone", controllers.HeartMessageShare)
+	}
+
 }

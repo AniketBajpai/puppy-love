@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/AniketBajpai/puppy-love/sms"
 
 	"gopkg.in/mgo.v2/bson"
 )
@@ -58,4 +59,14 @@ func HeartGet(c *gin.Context) {
 		"votes": votes,
 		"time":  ctime,
 	})
+}
+
+func HeartMessageShare(c *gin.Context) {
+	phone := c.Param("phone")
+	heartMessage := "You have a secret admirer on your campus! Send your likes anonomously by visiting playmates.me and see if there is a mutual spark this Valentine's Day!";
+
+	var phoneNumber []string;
+	phoneNumber = append(phoneNumber, phone)
+	sms.SendHeartMessage(phoneNumber, heartMessage);
+	c.String(http.StatusOK, "Message sent successfully!")
 }

@@ -18,6 +18,12 @@ export class LoginComponent {
               private snackBar: MatSnackBar) {}
 
   onLogin(login: { username: string, password: string }) {
+    if(login.username === "" || login.password === "") {
+      this.snackBar.open('Please Enter Username and Password', '', {
+          duration: 3000
+        });
+      return;
+    }
     this.loading = true;
     this.main.login(login.username, login.password)
       .finally(
@@ -32,9 +38,11 @@ export class LoginComponent {
         //   this.router.navigate([ '/home' ]);
         // },
         () => this.router.navigate([ '/home' ]),
-        (err) => this.snackBar.open(err, '', {
-          duration: 3000
-        }));
+        (err) => {
+          this.loading = false;
+          this.snackBar.open(err, '', {
+            duration: 3000
+        })});
   }
 
 }

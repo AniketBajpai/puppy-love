@@ -113,7 +113,8 @@ export class MainService {
           const crypto = new Crypto(password);
           crypto.deserializePriv(crypto.decryptSym(x.privKey));
           crypto.deserializePub(x.pubKey);
-          const data = Crypto.toJson(crypto.decryptSym(x.data));
+          const data = Crypto.toJson(x.data);
+          // const data = Crypto.toJson(crypto.decryptSym(x.data));
           return {
             _id: x._id,
             name: x.name,
@@ -153,13 +154,15 @@ export class MainService {
       const cry = new Crypto();
       cry.deserializePub(pubk);
       heartvalues.push({
-        'v': cry.encryptAsym(Crypto.getRand(1)),
+        'v': Crypto.getRand(1),
+        // 'v': cry.encryptAsym(Crypto.getRand(1)),
         'data': cnt.toString(),
         'genderOfSender': user.gender,
       });
 
       const pairId = (user._id > p._id ? (user._id + '-' + p._id) : (p._id + '-' + user._id));
-      declarevalues.push(Crypto.hash(pairId + '-' + user.crypto.diffieHellman(pubk)));
+      declarevalues.push(pairId);
+      // declarevalues.push(Crypto.hash(pairId + '-' + user.crypto.diffieHellman(pubk)));
       cnt = cnt + 1;
     }
 
@@ -204,7 +207,9 @@ export class MainService {
           nuser.data.lastCheck = hearts.time;
           const userhearts = nuser.data.received;
           for(let vote of hearts.votes) {
-            const attempt = user.crypto.decryptAsym(vote.v);
+            const attempt = vote.v;
+            // const attempt = user.crypto.decryptAsym(vote.v);
+            // TODO: Check!
             if (!attempt) {
               continue;
             }
@@ -328,10 +333,11 @@ export class MainService {
   save(): Promise<any> {
     const user = this.user$.value;
     const data = user.data;
+    console.log("save");
     console.log(data);
-    const encData = user.crypto.encryptSym(Crypto.fromJson(data));
+    // const encData = user.crypto.encryptSym(Crypto.fromJson(data));
     return this.http.post('/api/users/data/update/' + user._id, {
-      data: encData,
+      data: JSON.stringify(data),
     }).toPromise();
   }
 

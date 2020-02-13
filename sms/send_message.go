@@ -1,5 +1,5 @@
-// package sms
-package main
+package sms
+// package main
 
 import (
 	"fmt"
@@ -11,16 +11,12 @@ import (
 	// "encoding/json"
 )
 
-type Response_body struct {
-	Message string `json:"message"`
-	Type string    `json:"type"`
-}
 
-func sendHeartMessage(phoneNumbers []string, message string) {
+func SendHeartMessage(phoneNumbers []string, message string) {
 	url := "https://api.msg91.com/api/v2/sendsms"
 
 	for _, phone := range phoneNumbers {
-		str1 := "{ \"sender\": \"SOCKET\", \"route\": \"4\", \"country\": \"91\",\"sms\": [ { \"message\": \""
+		str1 := "{ \"sender\": \"PLAYMT\", \"route\": \"4\", \"country\": \"91\",\"sms\": [ { \"message\": \""
 		str2 := message
 		str3 := "\", \"to\": [ \""
 		str4 := phone
@@ -45,12 +41,12 @@ func sendHeartMessage(phoneNumbers []string, message string) {
 	}
 }
 
-func main(){
-	var phoneNumbers []string
-	phoneNumbers = append(phoneNumbers, "8800156160")
-	message := "Someone has liked you in your campus. You have a secret admirer! Send your likes anonomously by visiting playmates.me and see if you match this Valentine's Day"	// URL encoded
-	// var match bool
-	sendHeartMessage(phoneNumbers, message)
+// func main(){
+// 	var phoneNumbers []string
+// 	phoneNumbers = append(phoneNumbers, "8800156160")
+// 	message := "Someone has liked you in your campus. You have a secret admirer! Send your likes anonomously by visiting playmates.me and see if you match this Valentine's Day"	// URL encoded
+// 	// var match bool
+// 	sendHeartMessage(phoneNumbers, message)
 
-	// fmt.Println(match)
-}
+// 	// fmt.Println(match)
+// }

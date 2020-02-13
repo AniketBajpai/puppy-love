@@ -145,17 +145,19 @@ export class MainService {
     let declarevalues = [];
     let heartvalues = [];
     let cnt = 0;
+    
     for (let p of user.data.choices) {
-      if (!pubkeys.has(p._id)) {
-        console.log('Nk for ' + p._id);
-        cnt = cnt + 1;
-        continue;
-      }
-      const pubk = pubkeys.get(p._id);
+      // if (!pubkeys.has(p._id)) {
+      //   console.log('Nk for ' + p._id);
+      //   cnt = cnt + 1;
+      //   continue;
+      // }
+
+      // const pubk = pubkeys.get(p._id);
 
       // Now calculate the heart values
-      const cry = new Crypto();
-      cry.deserializePub(pubk);
+      // const cry = new Crypto();
+      // cry.deserializePub(pubk);
       heartvalues.push({
         'v': Crypto.getRand(1),
         // 'v': cry.encryptAsym(Crypto.getRand(1)),
@@ -169,20 +171,24 @@ export class MainService {
       // declarevalues.push(Crypto.hash(pairId + '-' + user.crypto.diffieHellman(pubk)));
       cnt = cnt + 1;
     }
-
+    
     // Trim down choices to 4
     let count = Math.min(4, cnt);
     for (let i = 0; i < count; i++) {
+      console.log(declarevalues[i]);
       declarePayload['t' + i] = JSON.stringify(declarevalues[i]);
     }
     for (let i = count; i < 4; i++) {
       declarePayload['t' + i] = '';
     }
 
-    return this.http.post('/api/users/data/submit/' + user._id, {
+    var submitData = {
       hearts: heartvalues,
       tokens: declarePayload
-    }).pipe (
+    };
+    console.log(submitData);
+
+    return this.http.post('/api/users/data/submit/' + user._id, submitData).pipe (
       tap(() => console.log('Saved hearts: ' + heartvalues.length + ' and declare values: ' + count)),
     );
 

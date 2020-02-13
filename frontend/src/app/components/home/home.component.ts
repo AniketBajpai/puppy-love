@@ -152,10 +152,10 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmit() {
-    if(!window.confirm('This will finalize your choices, you cannot change them afterwards. Proceed?')) {
-      // If you've seen this, you can assume that you've understood all the code here.
-      return;
-    }
+    // if(!window.confirm('This will finalize your choices, you cannot change them afterwards. Proceed?')) {
+    //   // If you've seen this, you can assume that you've understood all the code here.
+    //   return;
+    // }
     this.snackbar.open('Submitting, please wait...');
     this.main.submit().subscribe(
       () => this.snackbar.open('Submitted.', '', { duration: 3000 }),

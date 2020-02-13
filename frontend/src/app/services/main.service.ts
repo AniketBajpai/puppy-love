@@ -40,7 +40,7 @@ interface LoginData {
   gender: string;
   privKey: sjcl.SjclCipherEncrypted;
   pubKey: string;
-  data: sjcl.SjclCipherEncrypted;
+  data: string;
   submitted: boolean;
   matches: string;
 }
@@ -113,7 +113,11 @@ export class MainService {
           const crypto = new Crypto(password);
           crypto.deserializePriv(crypto.decryptSym(x.privKey));
           crypto.deserializePub(x.pubKey);
-          const data = Crypto.toJson(crypto.decryptSym(x.data));
+          var data = { choices: [], hearts: [], lastCheck: 0, received: [], };
+          if (x.data) {
+            data = Crypto.toJson(x.data);
+          }
+          // const data = Crypto.toJson(crypto.decryptSym(x.data));
           return {
             _id: x._id,
             name: x.name,
@@ -141,41 +145,50 @@ export class MainService {
     let declarevalues = [];
     let heartvalues = [];
     let cnt = 0;
+    
     for (let p of user.data.choices) {
-      if (!pubkeys.has(p._id)) {
-        console.log('Nk for ' + p._id);
-        cnt = cnt + 1;
-        continue;
-      }
-      const pubk = pubkeys.get(p._id);
+      // if (!pubkeys.has(p._id)) {
+      //   console.log('Nk for ' + p._id);
+      //   cnt = cnt + 1;
+      //   continue;
+      // }
+
+      // const pubk = pubkeys.get(p._id);
 
       // Now calculate the heart values
-      const cry = new Crypto();
-      cry.deserializePub(pubk);
+      // const cry = new Crypto();
+      // cry.deserializePub(pubk);
       heartvalues.push({
-        'v': cry.encryptAsym(Crypto.getRand(1)),
+        'v': Crypto.getRand(1),
+        // 'v': cry.encryptAsym(Crypto.getRand(1)),
         'data': cnt.toString(),
         'genderOfSender': user.gender,
       });
 
-      const pairId = (user._id > p._id ? (user._id + '-' + p._id) : (p._id + '-' + user._id));
-      declarevalues.push(Crypto.hash(pairId + '-' + user.crypto.diffieHellman(pubk)));
+      // const pairId = (user._id > p._id ? (user._id + '-' + p._id) : (p._id + '-' + user._id));
+      // declarevalues.push(pairId);
+      declarevalues.push(p);
+      // declarevalues.push(Crypto.hash(pairId + '-' + user.crypto.diffieHellman(pubk)));
       cnt = cnt + 1;
     }
-
+    
     // Trim down choices to 4
     let count = Math.min(4, cnt);
     for (let i = 0; i < count; i++) {
-      declarePayload['t' + i] = declarevalues[i];
+      console.log(declarevalues[i]);
+      declarePayload['t' + i] = JSON.stringify(declarevalues[i]);
     }
     for (let i = count; i < 4; i++) {
       declarePayload['t' + i] = '';
     }
 
-    return this.http.post('/api/users/data/submit/' + user._id, {
+    var submitData = {
       hearts: heartvalues,
       tokens: declarePayload
-    }).pipe (
+    };
+    console.log(submitData);
+
+    return this.http.post('/api/users/data/submit/' + user._id, submitData).pipe (
       tap(() => console.log('Saved hearts: ' + heartvalues.length + ' and declare values: ' + count)),
     );
 
@@ -204,7 +217,9 @@ export class MainService {
           nuser.data.lastCheck = hearts.time;
           const userhearts = nuser.data.received;
           for(let vote of hearts.votes) {
-            const attempt = user.crypto.decryptAsym(vote.v);
+            const attempt = vote.v;
+            // const attempt = user.crypto.decryptAsym(vote.v);
+            // TODO: Check!
             if (!attempt) {
               continue;
             }
@@ -328,10 +343,11 @@ export class MainService {
   save(): Promise<any> {
     const user = this.user$.value;
     const data = user.data;
+    console.log("save");
     console.log(data);
-    const encData = user.crypto.encryptSym(Crypto.fromJson(data));
+    // const encData = user.crypto.encryptSym(Crypto.fromJson(data));
     return this.http.post('/api/users/data/update/' + user._id, {
-      data: encData,
+      data: JSON.stringify(data),
     }).toPromise();
   }
 

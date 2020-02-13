@@ -26,11 +26,14 @@ func DeclarePrepare(c *gin.Context) {
 	var people []typeIds
 
 	if err := Db.GetCollection("user").
-		Find(bson.M{"dirty": false}).
+		Find(bson.M{"dirty": true}).
+		// Find(bson.M{"dirty": false}).
 		All(&people); err != nil {
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
+
+	log.Println(people)
 
 	bulk := Db.GetCollection("declare").Bulk()
 	for _, pe := range people {

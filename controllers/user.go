@@ -7,7 +7,8 @@ import (
 	"net/http"
 	"time"
 	"strings"
-	"io/ioutil"
+	// "io/ioutil"
+	"encoding/json"
 
 	"github.com/AniketBajpai/puppy-love/db"
 	"github.com/AniketBajpai/puppy-love/models"
@@ -46,7 +47,7 @@ func OTPGenerate(c *gin.Context) {
 
 	url := "https://api.msg91.com/api/v5/otp?authkey=" + authentication_key + "&template_id=" + template_id + "&extra_param=%7B%22Param1%22%3A%22Value1%22%2C%20%22Param2%22%3A%22Value2%22%2C%20%22Param3%22%3A%20%22Value3%22%7D&mobile=" + phone
 	// log.Println(url)
-
+  
 	req, _ := http.NewRequest("GET", url, nil)
 
 	req.Header.Add("content-type", "application/json")
@@ -54,9 +55,10 @@ func OTPGenerate(c *gin.Context) {
 	res, _ := http.DefaultClient.Do(req)
 
 	defer res.Body.Close()
-	body, _ := ioutil.ReadAll(res.Body)
+	// body, _ := ioutil.ReadAll(res.Body)
 
 	log.Print("exiting OTPGenerate")
+	log.Print(res)
 	c.String(http.StatusOK, "OTP sent to your phone!")
 
 }
@@ -324,6 +326,8 @@ func UserSubmitTrue(c *gin.Context) {
 		return
 	}
 
+	log.Println(heartsAndChoices)
+
 	// First, send the hearts using sendHearts
 	if err = sendHearts(user, heartsAndChoices.Hearts); err != nil {
 		c.JSON(http.StatusBadRequest, "Failed, probably the request is invalid")
@@ -348,10 +352,63 @@ func UserSubmitTrue(c *gin.Context) {
 
 }
 
+
 func declareStep(user models.User, info models.Declare) error {
 
 	if info.Id != user.Id {
 		return errors.New("Invalid session/userId")
+	}
+
+	log.Println("declareStep");
+	fmt.Printf("%+v\n", info)
+	fmt.Printf("%+v\n", info.Token0)
+
+	// Send messages to declarees
+	var person0 models.DeclareTarget;
+	var person1 models.DeclareTarget;
+	var person2 models.DeclareTarget;
+	var person3 models.DeclareTarget;
+	heartMessage := "You have a secret admirer on your campus! Send your likes anonomously by visiting playmates.me and see if there is a mutual spark this Valentine's Day!";
+	// heartMessage := "You have a secret admirer on your campus! To find out more, go to playmates.me";
+	if info.Token0 != "" {
+		err0 := json.Unmarshal([]byte(info.Token0), &person0);
+		fmt.Printf("%+v\n", person0)
+		if (err0 == nil  && person0.IsEmail == "") {
+			log.Println("Sending message to " + person0.Id)
+			var phoneNumber0 []string;
+			phoneNumber0 = append(phoneNumber0, person0.Id)
+			sms.SendHeartMessage(phoneNumber0, heartMessage);
+		}
+	}
+	if info.Token1 != "" {
+		err1 := json.Unmarshal([]byte(info.Token1), &person1);
+		fmt.Printf("%+v\n", person1)
+		if (err1 == nil  && person1.IsEmail == "") {
+			log.Println("Sending message to " + person1.Id)
+			var phoneNumber1 []string;
+			phoneNumber1 = append(phoneNumber1, person1.Id)
+			sms.SendHeartMessage(phoneNumber1, heartMessage);
+		}
+	}
+	if info.Token2 != "" {
+		err2 := json.Unmarshal([]byte(info.Token2), &person2);
+		fmt.Printf("%+v\n", person2)
+		if (err2 == nil  && person2.IsEmail == "") {
+			log.Println("Sending message to " + person0.Id)
+			var phoneNumber2 []string;
+			phoneNumber2 = append(phoneNumber2, person2.Id)
+			sms.SendHeartMessage(phoneNumber2, heartMessage);
+		}
+	}
+	if info.Token3 != "" {
+		err3 := json.Unmarshal([]byte(info.Token3), &person3);
+		fmt.Printf("%+v\n", person3)
+		if (err3 == nil  && person3.IsEmail == "") {
+			log.Println("Sending message to " + person0.Id)
+			var phoneNumber3 []string;
+			phoneNumber3 = append(phoneNumber3, person3.Id)
+			sms.SendHeartMessage(phoneNumber3, heartMessage);
+		}
 	}
 
 	// TODO: fix db name to not be a constant
@@ -401,7 +458,7 @@ func sendHearts(user models.User, info []models.GotHeart) error {
 	log.Print("Earlier count: ", len(*userVotes))
 	log.Print("Sent new: ", len(diffHearts))
 
-	if len(diffHearts)+len(*userVotes) > 4 {
+	if len(diffHearts) + len(*userVotes) > 4 {
 		return errors.New("More than allowed votes")
 	}
 
@@ -442,20 +499,30 @@ func UserUpdateData(c *gin.Context) {
 		return
 	}
 
-	type typeUserUpdateData struct {
+	type typeUserUpdateDataStr struct {
 		Data string `json:"data"`
 	}
 
-	info := new(typeUserUpdateData)
-	if err := c.BindJSON(info); err != nil {
+	// TODO: check definitions of UpdateDataHeart and UpdateDataReceived
+	type typeUserUpdateData struct {
+		Choices []models.DeclareTarget `json:"choices"`
+		Hearts []models.GotHeart `json:"hearts"`
+		lastCheck int `json:"lastCheck"`
+		Received []models.GotHeart `json:"received"`
+	}
+
+	infoStr := new(typeUserUpdateDataStr)
+	// info := new(typeUserUpdateData)
+	if err := c.BindJSON(infoStr); err != nil {
 		c.AbortWithStatus(http.StatusBadRequest)
 		return
 	}
-
+	
+	// log.Println(infoStr)
 	user := models.User{}
 
 	if _, err := Db.GetById("user", id).
-		Apply(user.SetField("data", info.Data), &user); err != nil {
+		Apply(user.SetField("data", infoStr.Data), &user); err != nil {
 
 		c.AbortWithStatus(http.StatusInternalServerError)
 		log.Print(err)

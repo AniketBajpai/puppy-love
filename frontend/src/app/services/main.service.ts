@@ -40,7 +40,7 @@ interface LoginData {
   gender: string;
   privKey: sjcl.SjclCipherEncrypted;
   pubKey: string;
-  data: sjcl.SjclCipherEncrypted;
+  data: string;
   submitted: boolean;
   matches: string;
 }

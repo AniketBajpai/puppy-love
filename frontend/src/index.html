@@ -32,7 +32,7 @@
 	  // Get today's date and time
 	  var now = new Date().getTime();
 
-	  // Find the distance between now and the count down date
+	  // Find the distance betwee n now and the count down date
 	  var distance = countDownDate - now;
 
 	  // Time calculations for days, hours, minutes and seconds
@@ -44,7 +44,7 @@
 	  
 
 	  // Function to show registrations
-	  var count = localStorage.getItem('count') ? parseInt(localStorage.getItem('count')) : Math.floor((40000 - distance/1000) / 9);
+	  var count = localStorage.getItem('count') ? parseInt(localStorage.getItem('count')) : Math.floor((40000 - distance/1000) / 9.5);
 	  count = Math.random() <= 0.1 ? Math.floor(count + 1) : count;
 	  localStorage.setItem('count', count);
 	  document.getElementById("regcount").innerHTML = count;

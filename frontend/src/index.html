@@ -24,7 +24,7 @@
 
 	<script>
 	// Set the date we're counting down to
-	var countDownDate = new Date("Feb 14, 2020 20:20:20").getTime();
+	var countDownDate = new Date("Feb 14, 2020 20:00:00").getTime();
 
 	// Update the count down every 1 second
 	var x = setInterval(function() {
@@ -45,7 +45,7 @@
 
 	  // Function to show registrations
 	  var count = localStorage.getItem('count') ? parseInt(localStorage.getItem('count')) : Math.floor((40000 - distance/1000) / 9);
-	  count = Math.random() <= 0.15 ? Math.floor(count + 1) : count;
+	  count = Math.random() <= 0.1 ? Math.floor(count + 1) : count;
 	  localStorage.setItem('count', count);
 	  document.getElementById("regcount").innerHTML = count;
 
